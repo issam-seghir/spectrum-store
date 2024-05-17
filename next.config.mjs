@@ -16,6 +16,12 @@ const nextConfig = {
 				port: "",
 				pathname: "**",
 			},
+			{
+				protocol: "https",
+				hostname: "assets.lummi.ai",
+				port: "",
+				pathname: "**",
+			},
 		],
 	},
 };
