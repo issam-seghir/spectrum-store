@@ -48,17 +48,17 @@ export default function ProductCard({ product }: { product: Product }) {
                         ${product.price}
                     </p>
                     <div className="flex items-center justify-between gap-1">
-                                <Button
-                                    variant="outline"
-                                    className="rounded-full"
-                                    size={"sm"}
-                                >
-                                    <Minus className="h-4 w-4" />
-                                </Button>
-                                <span>0</span>
                         <Button
                             variant="outline"
-                            className="rounded-full"
+                            className="h-5 w-5 rounded-full p-0 "
+                            size={"sm"}
+                        >
+                            <Minus className="h-4 w-4" />
+                        </Button>
+                        <span>0</span>
+                        <Button
+                            variant="outline"
+                            className="h-5 w-5 rounded-full p-0"
                             size={"sm"}
                         >
                             <Plus className="h-4 w-4" />
