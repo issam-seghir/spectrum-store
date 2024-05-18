@@ -1,4 +1,4 @@
-import { Product, ProductPageQueryParams } from "@/types";
+import { Product } from "@/types";
 import axios from "axios";
 
 const API_URL = "https://fakestoreapi.com";
@@ -10,7 +10,10 @@ const API_URL = "https://fakestoreapi.com";
  * @param {string} [category]
  * @return {Promise<Product[]>}
  */
-export async function getProducts(category?: string,query?:string): Promise<Product[]> {
+export async function getProducts(
+    category?: string,
+    query?: string,
+): Promise<Product[]> {
     try {
         const url = new URL(`${API_URL}/products`);
         if (category) {
@@ -32,7 +35,11 @@ export async function getProducts(category?: string,query?:string): Promise<Prod
     }
 }
 
-// Getting all categories from fake store API
+/**
+ * Getting all categories from fake store API
+ * @returns {Promise<string[]>} A promise that resolves to an array of product categories.
+ * @throws {AxiosError} When the API request fails.
+ */
 export async function getCategories(): Promise<string[]> {
     try {
         const { data } = await axios.get<string[]>(
@@ -45,18 +52,19 @@ export async function getCategories(): Promise<string[]> {
     }
 }
 
-
-
-// Getting all produts in a specfic category from fake store API
-export const getCategoyProducts = async (categoryName: string) => {
-    const { data } = await axios.get(
-        `${API_URL}/products/category/${categoryName}`,
-    );
-    return data;
-};
-
-// Getting specific product by id
-export const getProduct = async (id: number | string) => {
-    const { data } = await axios.get(`${API_URL}/products/${id}`);
-    return data;
-};
+/**
+ * Getting a specific product by its ID
+ * @param {number | string} id - The ID of the product to fetch.
+ * @returns {Promise<Product> | null} A promise that resolves to the fetched product.
+ */
+export async function getProductById(
+    id: number | string,
+): Promise<Product | null> {
+    try {
+        const response = await axios.get<Product>(`${API_URL}/products/${id}`);
+        return response.data;
+    } catch (error) {
+        console.error(`Failed to fetch product with ID ${id}:`, error);
+        return null;
+    }
+}

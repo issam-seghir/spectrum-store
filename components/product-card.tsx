@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export default function ProductCard({ product }: { product: Product }) {
     return (
-        <article className="animate-fadeIn flex  h-full max-h-full w-full flex-col space-y-2 rounded-md bg-background-secondary p-4 shadow-sm transition-opacity">
+        <article className="animate-fadeIn group flex  h-full max-h-full w-full flex-col space-y-2 rounded-md bg-background-secondary p-4 shadow-sm transition-opacity">
             <Link
                 href={`/products/${product.id}`}
                 passHref
