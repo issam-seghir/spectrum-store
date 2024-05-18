@@ -45,27 +45,27 @@ export default async function ProductDetail({ params: { id } }: Props) {
                 </Link>
                 <div className=" flex flex-auto flex-col items-center justify-center gap-10 p-3 min-[460px]:p-0  md:flex-row ">
                     <Image
-                        src={product?.image || ""}
-                        alt={product?.title || ""}
+                        src={product.image}
+                        alt={product.title}
                         width={400}
                         height={400}
                         className="max-w-[240px] rounded-2xl bg-white object-contain p-8 sm:max-w-[350px]"
                     />
                     <div className="flex h-full max-w-xl flex-auto flex-col gap-10  sm:justify-center ">
                         <div className="flex flex-col gap-2">
-                            <span className="bg-background-secondary w-fit rounded-md p-2 text-sm font-medium capitalize">
-                                {product?.category}
+                            <span className="dark:bg-background-secondary w-fit rounded-md bg-[#DAC0A3] p-2 text-sm font-medium capitalize">
+                                {product.category}
                             </span>
                             <h1 className="text-md font-bold sm:text-2xl md:text-4xl">
-                                {product?.title}
+                                {product.title}
                             </h1>
 
                             <p className="text-xs lg:text-base">
-                                {product?.description}
+                                {product.description}
                             </p>
                         </div>
 
-                        <p className="text-2xl font-bold">${product?.price}</p>
+                        <p className="text-2xl font-bold">${product.price}</p>
                         <div className="flex items-center justify-center gap-4 ">
                             <Button
                                 variant="default"

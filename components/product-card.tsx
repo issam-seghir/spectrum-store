@@ -6,18 +6,18 @@ import Link from "next/link";
 
 export default function ProductCard({ product }: { product: Product }) {
     return (
-        <article className="animate-fadeIn group flex  h-full max-h-full w-full flex-col space-y-2 rounded-md bg-background-secondary p-4 shadow-sm transition-opacity">
+        <article className="animate-fadeIn bg-background-secondary group flex  h-full max-h-full w-full flex-col space-y-2 rounded-md border-2 p-4  shadow-sm transition-opacity dark:border-0">
             <Link
                 href={`/products/${product.id}`}
                 passHref
-                className="flex max-h-48 flex-1 rounded bg-white py-4"
+                className="flex max-h-48 flex-1 rounded bg-[#FEFAF6] py-4 dark:bg-white"
             >
                 <Image
                     src={product.image}
                     width={300}
                     height={300}
                     alt={product.title}
-                    className="mx-auto h-40 w-40 object-contain transition duration-300 ease-in-out group-hover:scale-105"
+                    className="mx-auto  h-40 w-40 object-contain transition duration-300 ease-in-out group-hover:scale-105"
                 />
             </Link>
             <div className="flex flex-1 flex-col justify-between gap-4">
@@ -39,7 +39,7 @@ export default function ProductCard({ product }: { product: Product }) {
                     </abbr>
                 </p>
 
-                <span className="w-fit rounded-md bg-background p-2 text-xs font-medium capitalize">
+                <span className="w-fit rounded-md bg-[#DAC0A3] p-2 text-xs font-medium capitalize dark:bg-background">
                     {product.category}
                 </span>
 
@@ -50,7 +50,7 @@ export default function ProductCard({ product }: { product: Product }) {
                     <div className="flex items-center justify-between gap-1">
                         <Button
                             variant="outline"
-                            className="h-5 w-5 rounded-full p-0 "
+                            className="h-5 w-5 rounded-full bg-[#DAC0A3] p-0 dark:bg-background "
                             size={"sm"}
                         >
                             <Minus className="h-4 w-4" />
@@ -58,7 +58,7 @@ export default function ProductCard({ product }: { product: Product }) {
                         <span>0</span>
                         <Button
                             variant="outline"
-                            className="h-5 w-5 rounded-full p-0"
+                            className="h-5 w-5 rounded-full p-0 bg-[#DAC0A3] p-0 dark:bg-background"
                             size={"sm"}
                         >
                             <Plus className="h-4 w-4" />

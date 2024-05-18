@@ -26,7 +26,7 @@ export default function HeroSection() {
                 />
 
                 <div className="absolute flex h-full w-full flex-col items-center justify-center gap-4 ">
-                    <h1 className=" dark:animate-text bg-gradient-to-t from-purple-400 via-purple-600  to-blue-500 font-black  dark:bg-gradient-to-r dark:from-teal-500 dark:to-orange-500 bg-clip-text text-transparent text-3xl md:text-7xl lg:text-9xl">
+                    <h1 className=" animate-text bg-gradient-to-r from-neutral-300 to-stone-400 bg-clip-text  text-3xl font-black text-transparent dark:bg-gradient-to-r dark:from-blue-800 dark:to-indigo-900 md:text-7xl lg:text-9xl">
                         Spectrum Store
                     </h1>
 
