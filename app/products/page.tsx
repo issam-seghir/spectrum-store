@@ -34,13 +34,8 @@ export default async function ProductsPage({
             >
                 <Categories searchParams={searchParams} />
             </Suspense>
-            <Suspense
-                fallback={
-                    <div className="relative aspect-square h-full max-h-[550px] w-full overflow-hidden" />
-                }
-            >
+
                 <ProductList searchParams={searchParams} />
-            </Suspense>
         </section>
     );
 }
