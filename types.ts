@@ -20,11 +20,7 @@ export type CartItem = {
     quantity: number;
 };
 
-export interface Category {
-    link: string;
-    text: string;
-    id: string;
-}
+
 
 export interface ProductPageQueryParams {
     searchParams: {

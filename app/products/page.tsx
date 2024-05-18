@@ -2,6 +2,7 @@
 import ProductList from "@/components/product-list";
 import { ProductPageQueryParams } from "@/types";
 import { Metadata } from "next";
+import Categories from "@/components/categories";
 
 export const metadata: Metadata = {
     title: "Sonner - Products",
@@ -13,7 +14,7 @@ export default async function ProductsPage({
 }: ProductPageQueryParams) {
     return (
         <section className="m-4 flex flex-auto flex-col gap-4 sm:flex-row">
-            {/* <Categories searchParams={searchParams} /> */}
+            <Categories searchParams={searchParams} />
             <ProductList searchParams={searchParams} />
         </section>
     );

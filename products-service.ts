@@ -33,10 +33,19 @@ export async function getProducts(category?: string,query?:string): Promise<Prod
 }
 
 // Getting all categories from fake store API
-export const getCategories = async () => {
-    const { data } = await axios.get(`${API_URL}/products/categories`);
-    return data;
-};
+export async function getCategories(): Promise<string[]> {
+    try {
+        const { data } = await axios.get<string[]>(
+            `${API_URL}/products/categories`,
+        );
+        return data;
+    } catch (error) {
+        console.error(`Failed to fetch products:`, error);
+        return [];
+    }
+}
+
+
 
 // Getting all produts in a specfic category from fake store API
 export const getCategoyProducts = async (categoryName: string) => {
