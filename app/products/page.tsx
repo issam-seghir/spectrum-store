@@ -13,7 +13,7 @@ export default async function ProductsPage({
     searchParams,
 }: ProductPageQueryParams) {
     return (
-        <section className="m-4 flex flex-auto flex-col gap-4 sm:flex-row">
+        <section className="m-4 flex flex-auto flex-col gap-4 md:flex-row">
             <Categories searchParams={searchParams} />
             <ProductList searchParams={searchParams} />
         </section>

@@ -1,8 +1,7 @@
+import { Button } from "@/components/ui/button";
 import { getCategories } from "@/products-service";
-import { Checkbox } from "@/components/ui/checkbox";
-import Link from "next/link";
 import { ProductPageQueryParams } from "@/types";
-import { randomUUID } from "crypto";
+import Link from "next/link";
 
 export default async function Categories({
     searchParams: { category: categoryParam },
@@ -11,45 +10,21 @@ export default async function Categories({
 
     return (
         <>
-            <article className="block h-fit w-full flex-shrink-0 rounded-md bg-backgroundElement sm:w-80">
+            <article className="bg-background-secondary block h-fit w-full flex-shrink-0 rounded-md md:w-48 lg:w-72 ">
                 <h1 className="m-8 text-xl font-semibold">Categories</h1>
-                <div className="m-8 flex flex-col gap-2">
-                    <div key={randomUUID()}>
-                        <Link href={"/products"}>
-                            <Checkbox
-                                id={randomUUID()}
-                                checked={
-                                    categoryParam === undefined
-                                }
-                            />
-                            <label
-                                htmlFor={randomUUID()}
-                                className="ml-4 cursor-pointer text-sm font-medium capitalize leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                            >
-                                All
-                            </label>
-                        </Link>
+                <div className="m-8 flex flex-col">
+                    <div>
+                        <Button variant={"link"} className="h-9">
+                            <Link href="/products">All</Link>
+                        </Button>
                     </div>
                     {categories?.map((category: string) => {
-                        const id = randomUUID();
                         const link = `/products?category=${category}`;
                         return (
-                            <div key={id}>
-                                <Link href={link}>
-                                    <Checkbox
-                                        id={id}
-                                        checked={
-                                            categoryParam === category ||
-                                            categoryParam === undefined
-                                        }
-                                    />
-                                    <label
-                                        htmlFor={id}
-                                        className="ml-4 cursor-pointer text-sm font-medium capitalize leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                                    >
-                                        {category}
-                                    </label>
-                                </Link>
+                            <div key={category}>
+                                <Button variant={"link"} className="h-9">
+                                    <Link href={link}> {category}</Link>
+                                </Button>
                             </div>
                         );
                     })}

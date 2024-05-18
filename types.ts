@@ -1,4 +1,3 @@
-
 export type Product = {
     id: number;
     title: string;
@@ -20,13 +19,9 @@ export type CartItem = {
     quantity: number;
 };
 
-
-
 export interface ProductPageQueryParams {
     searchParams: {
         category?: string;
-        limit?: number;
-        sort?: "asc" | "desc";
         query?: string;
     };
 }

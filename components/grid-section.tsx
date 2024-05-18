@@ -6,7 +6,7 @@ export default function GridSection() {
     return (
         <section className="flex flex-auto items-center justify-center p-4 sm:p-8">
             <div className="grid gap-4 lg:grid-cols-2">
-                <div className="bg-background-secondary flex flex-row gap-4 overflow-hidden rounded-lg">
+                <div className="bg-background-secondary flex flex-row content-between gap-4 overflow-hidden rounded-lg">
                     <Image
                         src={
                             "https://assets.lummi.ai/assets/QmXssdq8hp1V3F9XfJMgkrkoRu7MbsKoGxYn5wCtu5KVKd?auto=format&w=1500"

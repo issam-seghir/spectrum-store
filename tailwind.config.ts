@@ -76,6 +76,19 @@ const config = {
                         "background-position": "right center",
                     },
                 },
+                fadeIn: {
+                    from: { opacity: "0" },
+                    to: { opacity: "1" },
+                },
+                marquee: {
+                    "0%": { transform: "translateX(0%)" },
+                    "100%": { transform: "translateX(-100%)" },
+                },
+                blink: {
+                    "0%": { opacity: "0.2" },
+                    "20%": { opacity: "1" },
+                    "100% ": { opacity: "0.2" },
+                },
                 "accordion-down": {
                     from: { height: "0" },
                     to: { height: "var(--radix-accordion-content-height)" },
@@ -87,6 +100,9 @@ const config = {
             },
             animation: {
                 text: "text 5s ease infinite",
+                fadeIn: "fadeIn .3s ease-in-out",
+                carousel: "marquee 60s linear infinite",
+                blink: "blink 1.4s both infinite",
                 "accordion-down": "accordion-down 0.2s ease-out",
                 "accordion-up": "accordion-up 0.2s ease-out",
             },
