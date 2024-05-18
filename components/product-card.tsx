@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 
 export default function ProductCard({ product }: { product: Product }) {
     return (
-        <article className="flex h-full max-h-full w-full flex-col space-y-2 rounded-md bg-backgroundElement p-4 shadow-sm">
+        <article className="aspect-square transition-opacity animate-fadeIn flex h-full max-h-full w-full flex-col space-y-2 rounded-md bg-backgroundElement p-4 shadow-sm">
             <Link
                 href={`/products/${product.id}`}
                 passHref
@@ -17,7 +17,8 @@ export default function ProductCard({ product }: { product: Product }) {
                     width={300}
                     height={300}
                     alt={product.title}
-                    className="mx-auto h-40 w-40 object-contain"
+                    sizes="(min-width: 1024px) 66vw, 100vw"
+                    className="transition duration-300 ease-in-out group-hover:scale-105 mx-auto h-40 w-40 object-contain"
                 />
             </Link>
             <div className="flex flex-1 flex-col justify-between gap-4">

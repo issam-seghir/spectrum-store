@@ -7,7 +7,6 @@ export default async function ProductList({
     searchParams,
 }: ProductPageQueryParams) {
     const products: Product[] = await getProducts(searchParams.category,searchParams.query);
-
     return (
         <>
             <article className="block space-y-5">

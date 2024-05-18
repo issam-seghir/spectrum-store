@@ -1,6 +1,5 @@
 "use client";
 
-import { usePathname, useSearchParams } from "next/navigation";
 
 
 import { buttonVariants } from "@/components/ui/button";
@@ -17,10 +16,7 @@ import { Menu } from "lucide-react";
 import Search from "@/components/search";
 
 export default function MobileMenu() {
-    const pathname = usePathname();
-    const searchParams = useSearchParams();
 
-    console.log(searchParams);
 
     return (
         <div className="block md:hidden">
