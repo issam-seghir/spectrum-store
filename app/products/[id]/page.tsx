@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { getProductById } from "@/products-service";
 import { Product } from "@/types";
-import { ArrowLeft, Minus, Plus, ShoppingCart } from "lucide-react";
+import { ArrowLeft, Minus, Plus, ShoppingCart, Star, StarHalf } from "lucide-react";
 import { ResolvingMetadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -29,9 +29,9 @@ export async function generateMetadata(
 export default async function ProductDetail({ params: { id } }: Props) {
     const product: Product | null = await getProductById(id);
 
-      if (!product) {
-          return notFound();
-      }
+    if (!product) {
+        return notFound();
+    }
     return (
         <>
             <div className="flex flex-col justify-center gap-4 justify-self-center min-[460px]:p-5  lg:p-20">
@@ -56,6 +56,22 @@ export default async function ProductDetail({ params: { id } }: Props) {
                             <span className="dark:bg-background-secondary w-fit rounded-md bg-[#DAC0A3] p-2 text-sm font-medium capitalize">
                                 {product.category}
                             </span>
+
+                            <div className="flex">
+                                {[
+                                    ...Array(Math.floor(product.rating.rate)),
+                                ].map((_, i) => (
+                                    <span key={i}>
+                                        <Star className="fill-[#DAC0A3] stroke-none dark:fill-white " />
+                                    </span>
+                                ))}
+                                {product.rating.rate % 1 !== 0 && (
+                                    <StarHalf className="border-none fill-[#DAC0A3] stroke-none dark:fill-white" />
+                                )}
+                                <span className="ml-2">
+                                    ({product.rating.count} ratings)
+                                </span>
+                            </div>
                             <h1 className="text-md font-bold sm:text-2xl md:text-4xl">
                                 {product.title}
                             </h1>
