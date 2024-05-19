@@ -3,10 +3,14 @@ import { Input } from "@/components/ui/input";
 import { Search as SearchShadcn } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-export default function Search({ placeholder = "Search ..." }: { placeholder?: string }) {
+export default function Search({
+    placeholder = "Search ...",
+}: {
+    placeholder?: string;
+}) {
     const searchParams = useSearchParams(); // gets the current URL search parameters, which allows you to access the query parameter.
     const pathname = usePathname(); // gets the current URL path.
-    const { replace } = useRouter(); // gets the router's replace method , which allows you to update the URL.
+    const { replace, push } = useRouter(); // gets the router's replace method , which allows you to update the URL.
 
     function handleSearch(term: string) {
         // translates the input into a URL-friendly format.
@@ -20,7 +24,7 @@ export default function Search({ placeholder = "Search ..." }: { placeholder?: s
         }
         // updates the URL with the user's search data.
         //  For example, /products?query=cl if the user searches for "Clo".
-        replace(`${pathname}?${params.toString()}`);
+        replace(`/products?${params.toString()}`);
     }
 
     return (

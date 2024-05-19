@@ -1,13 +1,13 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
-import axios from "axios";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Loader2 } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
 
 export default function LogInPage() {
     const params = useSearchParams();
@@ -54,9 +54,15 @@ export default function LogInPage() {
     // };
 
     return (
-        <div className="container relative h-[calc(100vh-75px)] flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
-            <div className="relative hidden h-full flex-col bg-muted p-10 text-white dark:border-r lg:flex">
-                {/* Image Here */}
+        <div className="container relative h-[100dvh] flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
+            <div className="relative hidden h-full w-full flex-col bg-muted dark:border-r lg:flex">
+                <Image
+                    loading="eager"
+                    layout="fill"
+                    objectFit="cover"
+                    src="https://assets.lummi.ai/assets/QmXarCVzUC6q6QGL56JJkWW7NucjkDrP4q6nsVQ72yzJ7q?auto=format&w=400"
+                    alt="Girl Rockstar"
+                />
             </div>
             <div className="pt-16 lg:p-8">
                 <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
@@ -65,7 +71,7 @@ export default function LogInPage() {
                             Sign In
                         </h1>
                         <p className="text-sm text-muted-foreground">
-                            Enter your email and password
+                            Enter your username and password
                         </p>
                     </div>
                     {params.get("message") ? (
@@ -80,13 +86,12 @@ export default function LogInPage() {
                             <div className="grid gap-2">
                                 <div className="grid gap-1">
                                     <Label className="py-2" htmlFor="email">
-                                        Email
+                                        Username
                                     </Label>
                                     <Input
-                                        id="email"
+                                        id="username"
                                         placeholder="name@example.com"
-                                        type="email"
-                                        autoComplete="email"
+                                        autoComplete="username"
                                         required
                                         onChange={(e) =>
                                             setAuthState({
