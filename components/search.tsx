@@ -2,7 +2,7 @@
 import { Input } from "@/components/ui/input";
 import { Search as SearchShadcn } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-
+import { useDebouncedCallback } from "use-debounce";
 export default function Search({
     placeholder = "Search ...",
 }: {
@@ -12,7 +12,7 @@ export default function Search({
     const pathname = usePathname(); // gets the current URL path.
     const { replace, push } = useRouter(); // gets the router's replace method , which allows you to update the URL.
 
-    function handleSearch(term: string) {
+    const handleSearch = useDebouncedCallback((term) => {
         // translates the input into a URL-friendly format.
         const params = new URLSearchParams(searchParams.toString());
         if (term) {
@@ -25,7 +25,7 @@ export default function Search({
         // updates the URL with the user's search data.
         //  For example, /products?query=cl if the user searches for "Clo".
         replace(`/products?${params.toString()}`);
-    }
+    }, 300);
 
     return (
         <div className="relative ml-auto flex-1  md:grow-0">

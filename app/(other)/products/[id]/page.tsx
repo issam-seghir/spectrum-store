@@ -27,7 +27,8 @@ export async function generateMetadata(
 }
 
 export default async function ProductDetail({ params: { id } }: Props) {
-    const product: Product | null = await getProductById(id);
+    // const product: Product | null = await getProductById(id);
+    const product: Product | null = null;
 
     if (!product) {
         return notFound();

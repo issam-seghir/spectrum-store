@@ -68,3 +68,22 @@ export async function getProductById(
         return null;
     }
 }
+
+
+/**
+ * Login in user
+ * @param {string} username - the username of user
+ * @param {string} password - the password of user
+ * @return {Promise<User>}
+ */
+export async function login(
+    formData,
+): Promise<Product | null> {
+    try {
+        const response = await axios.get<Product>(`${API_URL}/products/${id}`);
+        return response.data;
+    } catch (error) {
+        console.error(`Failed to fetch product with ID ${id}:`, error);
+        return null;
+    }
+}

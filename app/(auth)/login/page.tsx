@@ -8,6 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
+import {login} from "@/products-service"
 
 export default function LogInPage() {
     const params = useSearchParams();
@@ -58,7 +59,7 @@ export default function LogInPage() {
             <div className="relative hidden h-full w-full flex-col bg-muted dark:border-r lg:flex">
                 <Image
                     loading="eager"
-                    layout="fill"
+                    fill
                     objectFit="cover"
                     src="https://assets.lummi.ai/assets/QmXarCVzUC6q6QGL56JJkWW7NucjkDrP4q6nsVQ72yzJ7q?auto=format&w=400"
                     alt="Girl Rockstar"
@@ -74,15 +75,8 @@ export default function LogInPage() {
                             Enter your username and password
                         </p>
                     </div>
-                    {params.get("message") ? (
-                        <p className="rounded-md bg-green-300 p-4 font-bold">
-                            {params.get("message")}
-                        </p>
-                    ) : (
-                        <p></p>
-                    )}
                     <div className="grid gap-6">
-                        <form action="#" method="post">
+                        <form action={login} method="post">
                             <div className="grid gap-2">
                                 <div className="grid gap-1">
                                     <Label className="py-2" htmlFor="email">

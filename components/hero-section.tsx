@@ -10,6 +10,7 @@ export default function HeroSection() {
                     loading="eager"
                     width={1400}
                     height={500}
+                    // placeholder="blur"
                     priority={true}
                     src="https://assets.lummi.ai/assets/QmXarCVzUC6q6QGL56JJkWW7NucjkDrP4q6nsVQ72yzJ7q?auto=format&w=1400"
                     alt="Girl Rockstar"
@@ -19,6 +20,7 @@ export default function HeroSection() {
                     loading="eager"
                     width={600}
                     height={500}
+                    //   placeholder="blur"
                     priority={true}
                     src="https://assets.lummi.ai/assets/QmS8NLeQhVFxpcJZpKevcvgXUdhFmKSqA3yh9KcfLP7Lkg?auto=format&w=600"
                     alt="Girl Rockstar"
