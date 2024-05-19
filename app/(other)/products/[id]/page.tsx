@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { getProductById } from "@/products-service";
+import { getProductById } from "@/lib/services";
 import { Product } from "@/types";
 import { ArrowLeft, Minus, Plus, ShoppingCart, Star, StarHalf } from "lucide-react";
 import { ResolvingMetadata } from "next";
@@ -27,8 +27,7 @@ export async function generateMetadata(
 }
 
 export default async function ProductDetail({ params: { id } }: Props) {
-    // const product: Product | null = await getProductById(id);
-    const product: Product | null = null;
+    const product: Product | null = await getProductById(id);
 
     if (!product) {
 notFound()

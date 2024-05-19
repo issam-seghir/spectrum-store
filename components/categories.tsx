@@ -1,5 +1,5 @@
 import CategoriesItems from "@/components/categories-items";
-import { getCategories } from "@/products-service";
+import { getCategories } from "@/lib/services";
 import { ProductPageQueryParams } from "@/types";
 
 export default async function Categories({

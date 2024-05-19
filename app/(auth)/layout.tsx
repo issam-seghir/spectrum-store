@@ -4,7 +4,7 @@ import { Footer } from "@/components/layout/footer";
 import { ThemeProvider } from "@/contexts/theme-provider";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-
+import { Toaster } from "@/components/ui/toaster";
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
@@ -23,16 +23,15 @@ export default function AuthLayout({
 }>) {
     return (
         <html lang="en" className="scroll-smooth" suppressHydrationWarning>
-            <body
-                className={`${inter.variable} font-sans`}
-            >
+            <body className={`${inter.variable} font-sans`}>
+                <Toaster />
                 <ThemeProvider
                     attribute="class"
                     defaultTheme="system"
                     enableSystem
                     disableTransitionOnChange
                 >
-                        {children}
+                    {children}
                 </ThemeProvider>
             </body>
         </html>

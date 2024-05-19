@@ -25,3 +25,8 @@ export interface ProductPageQueryParams {
         query?: string;
     };
 }
+
+export interface LoginFrom {
+        username: string ;
+        password: string ;
+}

@@ -3,56 +3,21 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Loader2 } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast";
+import { login } from "@/lib/actions";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
-import {login} from "@/products-service"
+import { useActionState } from "react";
+import { useFormStatus } from 'react-dom';
 
 export default function LogInPage() {
-    const params = useSearchParams();
-    const router = useRouter();
+  const { toast } = useToast();
+   const { pending } = useFormStatus()
 
-    const [authState, setAuthState] = useState({
-        email: "",
-        password: "",
-    });
-    const [loading, setLoading] = useState<boolean>(false);
-    const [errors, setError] = useState();
-
-    // const submitForm = async () => {
-    //     setLoading(true);
-    //     axios
-    //         .post("/api/auth/login", authState)
-    //         .then((res) => {
-    //             setLoading(false);
-    //             const response = res.data;
-    //             console.log("The response is ", response);
-    //             if (response.status == 200) {
-    //                 console.log("The user signed in", response);
-    //                 signIn("credentials", {
-    //                     email: response.data.email,
-    //                     password: response.data.password,
-    //                     callbackUrl: "/",
-    //                     redirect: true,
-    //                 })
-    //                     .then((res) => {
-    //                         console.log("success", res);
-    //                     })
-    //                     .catch((err) => {
-    //                         console.log("error", err);
-    //                     });
-    //             } else if (response.status == 400 || response.status == 401) {
-    //                 console.log("error response", response);
-    //                 setError(response?.errors);
-    //             }
-    //         })
-    //         .catch((err) => {
-    //             setLoading(false);
-    //             console.log("Error is", err);
-    //         });
-    // };
+//    toast({
+//        title: "Error when sign in",
+//        description: state?.message,
+//    });
 
     return (
         <div className="container relative h-[100dvh] flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
@@ -76,51 +41,38 @@ export default function LogInPage() {
                         </p>
                     </div>
                     <div className="grid gap-6">
-                        <form action={login} method="post">
+                        <form action={login} >
                             <div className="grid gap-2">
                                 <div className="grid gap-1">
-                                    <Label className="py-2" htmlFor="email">
+                                    <Label className="py-2" htmlFor="username">
                                         Username
                                     </Label>
                                     <Input
                                         id="username"
-                                        placeholder="name@example.com"
+                                        name="username"
+                                        placeholder="username"
                                         autoComplete="username"
                                         required
-                                        onChange={(e) =>
-                                            setAuthState({
-                                                ...authState,
-                                                email: e.target.value,
-                                            })
-                                        }
-                                        disabled={loading}
+                                        disabled={pending}
                                     />
                                     <Label className="py-2" htmlFor="password">
                                         Password
                                     </Label>
                                     <Input
                                         id="password"
+                                        name="password"
                                         type="password"
                                         placeholder="****"
                                         required
-                                        onChange={(e) =>
-                                            setAuthState({
-                                                ...authState,
-                                                password: e.target.value,
-                                            })
-                                        }
-                                        disabled={loading}
+                                        disabled={pending}
                                     />
                                 </div>
                                 <Button
                                     className="mt-2"
-                                    disabled={loading}
-                                    // onClick={submitForm}
+                                    type="submit"
+                                    disabled={pending}
                                 >
                                     Sign In with Email{" "}
-                                    {loading && (
-                                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                    )}
                                 </Button>
                             </div>
                         </form>

@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/footer";
 import { ThemeProvider } from "@/contexts/theme-provider";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Toaster } from "@/components/ui/toaster"
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
@@ -37,7 +38,7 @@ export default function RootLayout({
                         {children}
                     </main>
                     <Footer />
-
+                    <Toaster />
                 </ThemeProvider>
             </body>
         </html>
