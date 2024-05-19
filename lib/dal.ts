@@ -1,14 +1,16 @@
 import "server-only";
+import jwt from "jsonwebtoken";
 
-import { logout } from "@/lib/actions";
 import { cookies } from "next/headers";
-import { cache } from "react";
 import { redirect } from "next/navigation";
+import { cache } from "react";
 
 export const verifySession = cache(async () => {
     const token = cookies().get("token")?.value;
+    const decoded = jwt.decode(token);
+    console.log(decoded);
 
-    if (!token) {
+    if (!decoded?.user) {
         redirect("/login");
     }
 
