@@ -7,13 +7,10 @@ import { useToast } from "@/components/ui/use-toast";
 import { login } from "@/lib/actions";
 import Image from "next/image";
 import Link from "next/link";
-import { useActionState } from "react";
 import { useFormStatus } from 'react-dom';
-
 export default function LogInPage() {
   const { toast } = useToast();
    const { pending } = useFormStatus()
-
 //    toast({
 //        title: "Error when sign in",
 //        description: state?.message,
@@ -41,7 +38,7 @@ export default function LogInPage() {
                         </p>
                     </div>
                     <div className="grid gap-6">
-                        <form action={login} >
+                        <form action={login} method="POST">
                             <div className="grid gap-2">
                                 <div className="grid gap-1">
                                     <Label className="py-2" htmlFor="username">
