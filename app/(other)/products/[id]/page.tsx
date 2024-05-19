@@ -31,8 +31,9 @@ export default async function ProductDetail({ params: { id } }: Props) {
     const product: Product | null = null;
 
     if (!product) {
-        return notFound();
+notFound()
     }
+
     return (
         <>
             <div className="flex flex-col justify-center gap-4 justify-self-center min-[460px]:p-5  lg:p-20">
