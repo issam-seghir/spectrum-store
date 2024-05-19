@@ -38,7 +38,7 @@ export default function LogInPage() {
                         </p>
                     </div>
                     <div className="grid gap-6">
-                        <form action={login} method="POST">
+                        <form action={login} >
                             <div className="grid gap-2">
                                 <div className="grid gap-1">
                                     <Label className="py-2" htmlFor="username">

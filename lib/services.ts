@@ -1,3 +1,4 @@
+import { verifySession } from "@/lib/dal";
 import { Product } from "@/types";
 import axios from "axios";
 
