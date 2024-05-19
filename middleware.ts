@@ -1,6 +1,6 @@
+import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
-import jwt from "jsonwebtoken";
 
 const allowedOrigins = [process.env.SITE_URL];
 
@@ -10,8 +10,14 @@ const corsOptions = {
 };
 
 // 1. Specify protected and public routes
-const protectedRoutes = ["/", "/products","/admin"];
-const publicRoutes = ["/login", "/signup", "/"];
+const protectedRoutes = [
+    "/",
+    "/products",
+    "/products/:path*", //  target all paths under /products
+    "/admin",
+    "/admin/:path*", //  target all paths under /products
+];
+const publicRoutes = ["/login", "/signup"];
 
 export default async function middleware(req: NextRequest) {
     // Check the origin from the request
@@ -42,6 +48,8 @@ export default async function middleware(req: NextRequest) {
 
     // 2. Check if the current route is protected or public
     const path = req.nextUrl.pathname;
+    console.log(path);
+
     const isProtectedRoute = protectedRoutes.includes(path);
     const isPublicRoute = publicRoutes.includes(path);
     console.log("im a middleware");
@@ -49,21 +57,22 @@ export default async function middleware(req: NextRequest) {
     // 3. Decrypt the session from the cookie
     const token = cookies().get("token")?.value;
     const decoded = jwt.decode(token);
-console.log(decoded);
+    console.log(
+        isPublicRoute &&
+            !!decoded?.user &&
+            !req.nextUrl.pathname.startsWith("/"),
+    );
 
     // 5. Redirect to /login if the user is not authenticated
     if (isProtectedRoute && !decoded?.user) {
-        console.log("im a reddirect");
+        console.log("im a reddirect in ProtectedRoute");
 
         return NextResponse.redirect(new URL("/login", req.nextUrl));
     }
 
     // 6. Redirect to home page if the user is authenticated
-    if (
-        isPublicRoute &&
-        decoded?.user &&
-        !req.nextUrl.pathname.startsWith("/")
-    ) {
+    if (isPublicRoute && decoded?.user) {
+        console.log("im a reddirect in PublicRoute");
         return NextResponse.redirect(new URL("/", req.nextUrl));
     }
 
