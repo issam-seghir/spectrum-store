@@ -27,6 +27,6 @@ export interface ProductPageQueryParams {
 }
 
 export interface LoginFrom {
-        username: string ;
-        password: string ;
+    username: string;
+    password: string;
 }

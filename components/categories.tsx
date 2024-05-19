@@ -1,6 +1,6 @@
 import CategoriesItems from "@/components/categories-items";
 import { getCategories } from "@/lib/services";
-import { ProductPageQueryParams } from "@/types";
+import { ProductPageQueryParams } from "@/lib/types";
 
 export default async function Categories({
     searchParams: { category: categoryParam },

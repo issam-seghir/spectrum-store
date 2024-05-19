@@ -1,5 +1,4 @@
-import { verifySession } from "@/lib/dal";
-import { Product } from "@/types";
+import { Product } from "@/lib/types";
 import axios from "axios";
 
 const API_URL = "https://fakestoreapi.com";
