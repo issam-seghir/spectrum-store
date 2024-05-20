@@ -1,22 +1,87 @@
-"use client"
+import { CreditCard, DollarSign, Package } from "lucide-react";
 
+import { Separator } from "@/components/ui/separator";
+import { Overview } from "@/components/admin/overview-chart";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-
-export default function Admin() {
-  return (
-        <div>
-          <h2 className="text-xl mb-5">Welcome back, Admin!</h2>
-          <p>Here is the overview of your account:</p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-5">
-            <div className="p-5 border rounded-md shadow">
-              <h3 className="text-lg mb-2">Total Users</h3>
-              <p>500</p>
-            </div>
-            <div className="p-5 border rounded-md shadow">
-              <h3 className="text-lg mb-2">Total Products</h3>
-              <p>50</p>
-            </div>
-          </div>
-        </div>
-  )
+interface DashboardPageProps {
+    params: {
+        storeId: string;
+    };
 }
+
+const generateRandomData = () => {
+    const data = [];
+    for (let i = 0; i < 12; i++) {
+        data.push({
+            name: `Month ${i + 1}`,
+            total: Math.floor(Math.random() * 1000) + 1,
+        });
+    }
+    return data;
+};
+const DashboardPage: React.FC<DashboardPageProps> = async ({ params }) => {
+
+const graphRevenue = generateRandomData();
+
+    return (
+        <div className="flex-col">
+            <div className="flex-1 space-y-4 p-8 pt-6">
+                <div>
+                    <h2 className="text-3xl font-bold tracking-tight">
+                        Dashboard
+                    </h2>
+                    <p className="text-sm text-muted-foreground">
+                        Overview of your store
+                    </p>
+                </div>
+                <Separator />
+                <div className="grid grid-cols-3 gap-4">
+                    <Card>
+                        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                            <CardTitle className="text-sm font-medium">
+                                Total Revenue
+                            </CardTitle>
+                            <DollarSign className="h-4 w-4 text-muted-foreground" />
+                        </CardHeader>
+                        <CardContent>
+                            <div className="text-2xl font-bold">156</div>
+                        </CardContent>
+                    </Card>
+                    <Card>
+                        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                            <CardTitle className="text-sm font-medium">
+                                Sales
+                            </CardTitle>
+                            <CreditCard className="h-4 w-4 text-muted-foreground" />
+                        </CardHeader>
+                        <CardContent>
+                            <div className="text-2xl font-bold">+90</div>
+                        </CardContent>
+                    </Card>
+                    <Card>
+                        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                            <CardTitle className="text-sm font-medium">
+                                Products In Stock
+                            </CardTitle>
+                            <Package className="h-4 w-4 text-muted-foreground" />
+                        </CardHeader>
+                        <CardContent>
+                            <div className="text-2xl font-bold">5474</div>
+                        </CardContent>
+                    </Card>
+                </div>
+                <Card className="col-span-4">
+                    <CardHeader>
+                        <CardTitle>Overview</CardTitle>
+                    </CardHeader>
+                    <CardContent className="pl-2">
+                        <Overview data={graphRevenue} />
+                    </CardContent>
+                </Card>
+            </div>
+        </div>
+    );
+};
+
+export default DashboardPage;
