@@ -3,10 +3,9 @@ import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { ThemeProvider } from "@/contexts/theme-provider";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import { Toaster } from "@/components/ui/toaster"
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+// metadata for html head to improve SEO
 
 export const metadata: Metadata = {
     title: "Spectrum Store - Your One-Stop Shop",

@@ -2,14 +2,12 @@ import "@/app/globals.css";
 import { AdminSidebar } from "@/components/admin-sidebar";
 import type { Metadata } from "next";
 
+// metadata
+
 export const metadata: Metadata = {
-    title: "Spectrum Store ....",
-    description:
-        "Discover a spectrum of possibilities with our wide range of products. Spectrum Store, your one-stop shop for all your needs.",
-    openGraph: {
-        type: "website",
-    },
+    title: "Spectrum Store | Admin Dashboard",
 };
+
 
 export default function RootLayout({
     children,

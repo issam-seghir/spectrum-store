@@ -1,5 +1,7 @@
 "use client";
 import { useEffect } from "react";
+
+
 export default function Error(
     { reset }: { reset: () => void },
     error: Error & { digest?: string },

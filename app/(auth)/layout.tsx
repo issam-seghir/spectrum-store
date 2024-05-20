@@ -6,12 +6,9 @@ import { Inter } from "next/font/google";
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
-    title: "Spectrum Store - Your One-Stop Shop",
+    title: "Spectrum Store - Login",
     description:
-        "Discover a spectrum of possibilities with our wide range of products. Spectrum Store, your one-stop shop for all your needs.",
-    openGraph: {
-        type: "website",
-    },
+        "Log in to your Spectrum Store account to start shopping or manage your orders.",
 };
 
 export default function AuthLayout({

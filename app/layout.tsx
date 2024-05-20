@@ -6,6 +6,7 @@ import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
+// metadata for html head to improve SEO
 export const metadata: Metadata = {
     title: "Spectrum Store - Your One-Stop Shop",
     description:

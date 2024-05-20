@@ -6,10 +6,15 @@ import { ResolvingMetadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+
+
 type Props = {
     params: { id: string };
 };
 
+//? This function is called during the build (build time) and generates the metadata for the page
+//? metadata is used by search engines and social media platforms to display information about the page
+//? this will improve the SEO of the page
 export async function generateMetadata(
     { params: { id } }: Props,
     parent: ResolvingMetadata,
@@ -18,7 +23,7 @@ export async function generateMetadata(
     const previousImages = (await parent).openGraph?.images || [];
 
     return {
-        title: `Sonner - ${product?.title}`,
+        title: `Spectrum - ${product?.title}`,
         description: product?.description,
         openGraph: {
             images: [product?.image, ...previousImages],

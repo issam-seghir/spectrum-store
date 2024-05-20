@@ -7,9 +7,12 @@ import clsx from "clsx";
 import { Metadata } from "next";
 import { Suspense } from "react";
 
+// metadata for html head to improve SEO
+
 export const metadata: Metadata = {
-    title: "Sonner - Products",
-    description: "Sonner find everything you need",
+    title: "Spectrum Store | Shop Top Quality Products",
+    description:
+        "Explore a wide range of high-quality products at Spectrum Store. From electronics to fashion, we have everything you need at unbeatable prices.",
 };
 
 const skeleton = "mb-3 h-4 w-5/6 animate-pulse rounded";
