@@ -1,5 +1,5 @@
-import Image from "next/image";
 import { buttonVariants } from "@/components/ui/button";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function HeroSection() {
@@ -10,20 +10,18 @@ export default function HeroSection() {
                     loading="eager"
                     width={1400}
                     height={500}
-                    // placeholder="blur"
                     priority={true}
-                    src="https://assets.lummi.ai/assets/QmXarCVzUC6q6QGL56JJkWW7NucjkDrP4q6nsVQ72yzJ7q?auto=format&w=1400"
-                    alt="Girl Rockstar"
+                    src="/Modern Chic Wardrobe with Industrial Flair.jpg"
+                    alt="Modern Chic Wardrobe with Industrial Flair"
                     className="h-auto max-h-full max-w-full object-cover"
                 />
                 <Image
                     loading="eager"
                     width={600}
                     height={500}
-                    //   placeholder="blur"
                     priority={true}
-                    src="https://assets.lummi.ai/assets/QmS8NLeQhVFxpcJZpKevcvgXUdhFmKSqA3yh9KcfLP7Lkg?auto=format&w=600"
-                    alt="Girl Rockstar"
+                    src="/Urban Sophisticate.jpg"
+                    alt="Urban Sophisticate"
                     className="h-auto max-h-full max-w-full object-cover"
                 />
 

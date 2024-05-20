@@ -18,10 +18,10 @@ export default function LogInPage() {
                 <Image
                     loading="eager" // preloads the image before it's in the viewport
                     fill // stretches the image to fit the container
-                    objectFit="cover"
                     sizes="(max-width: 640px) 100vw, 640px" // responsive image sizes
                     src="/Modern Chic Wardrobe with Industrial Flair.jpg"
                     alt="Modern Chic Wardrobe with Industrial Flair"
+                    className="object-cover"
                 />
             </div>
             <div className="pt-16 lg:p-8">
