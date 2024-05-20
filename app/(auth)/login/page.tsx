@@ -11,20 +11,17 @@ import { useFormStatus } from 'react-dom';
 export default function LogInPage() {
   const { toast } = useToast();
    const { pending } = useFormStatus()
-//    toast({
-//        title: "Error when sign in",
-//        description: state?.message,
-//    });
 
     return (
         <div className="container relative h-[100dvh] flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
             <div className="relative hidden h-full w-full flex-col bg-muted dark:border-r lg:flex">
                 <Image
-                    loading="eager"
-                    fill
+                    loading="eager" // preloads the image before it's in the viewport
+                    fill // stretches the image to fit the container
                     objectFit="cover"
-                    src="https://assets.lummi.ai/assets/QmXarCVzUC6q6QGL56JJkWW7NucjkDrP4q6nsVQ72yzJ7q?auto=format&w=400"
-                    alt="Girl Rockstar"
+                    sizes="(max-width: 640px) 100vw, 640px" // responsive image sizes
+                    src="/Modern Chic Wardrobe with Industrial Flair.jpg"
+                    alt="Modern Chic Wardrobe with Industrial Flair"
                 />
             </div>
             <div className="pt-16 lg:p-8">
@@ -38,7 +35,7 @@ export default function LogInPage() {
                         </p>
                     </div>
                     <div className="grid gap-6">
-                        <form action={login} >
+                        <form action={login}>
                             <div className="grid gap-2">
                                 <div className="grid gap-1">
                                     <Label className="py-2" htmlFor="username">
@@ -77,7 +74,7 @@ export default function LogInPage() {
                         </form>
                     </div>
                     <Link href="/signup" className="text-center">
-                        Don't have an account? Click to create one!
+                        Don&apos;t have an account? Click to create one!
                     </Link>
                 </div>
             </div>

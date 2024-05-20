@@ -2,8 +2,14 @@ import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
+//? this is a middleware function that will run on every request
+//? it will check if the user is authenticated or not (authorization)
+//? and redirect them to the appropriate page
+
+// allowedOrigins for CORS
 const allowedOrigins = [process.env.SITE_URL];
 
+// CORS options
 const corsOptions = {
     "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type, Authorization",
@@ -15,7 +21,7 @@ const protectedRoutes = [
     "/products",
     "/products/:path*", //  target all paths under /products
     "/admin",
-    "/admin/:path*", //  target all paths under /products
+    "/admin/:path*", //  target all paths under /admin
 ];
 const publicRoutes = ["/login", "/signup"];
 
@@ -52,14 +58,12 @@ export default async function middleware(req: NextRequest) {
     const isProtectedRoute = protectedRoutes.includes(path);
     const isPublicRoute = publicRoutes.includes(path);
 
-    // 3. Decrypt the session from the cookie
+    // 3. Decrypt the token from the cookie
     const token = cookies().get("token")?.value;
     const decoded = jwt.decode(token);
 
-
     // 5. Redirect to /login if the user is not authenticated
     if (isProtectedRoute && !decoded?.user) {
-
         return NextResponse.redirect(new URL("/login", req.nextUrl));
     }
 
