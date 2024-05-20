@@ -8,7 +8,6 @@ import { cache } from "react";
 export const verifySession = cache(async () => {
     const token = cookies().get("token")?.value;
     const decoded = jwt.decode(token);
-    console.log(decoded);
 
     if (!decoded?.user) {
         redirect("/login");

@@ -34,10 +34,14 @@ export default function UserAvatarOptions() {
             <DropdownMenuContent align="end">
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>Settings</DropdownMenuItem>
-                <DropdownMenuItem>Support</DropdownMenuItem>
+                <DropdownMenuItem className="cursor-pointer">
+                    Admin
+                </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={() => logout()}>
+                <DropdownMenuItem
+                    className="cursor-pointer"
+                    onClick={() => logout()}
+                >
                     Logout
                 </DropdownMenuItem>
             </DropdownMenuContent>

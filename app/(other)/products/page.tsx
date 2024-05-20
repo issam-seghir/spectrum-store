@@ -1,6 +1,6 @@
 // import Categories from "@/components/product-page/categories";
-import Categories from "@/components/categories";
-import ProductList from "@/components/product-list";
+import Categories from "@/components/products/categories";
+import ProductList from "@/components/products/product-list";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ProductPageQueryParams } from "@/lib/types";
 import clsx from "clsx";

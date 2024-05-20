@@ -2,18 +2,15 @@
 
 
 
+import Search from "@/components/header/search";
 import { buttonVariants } from "@/components/ui/button";
 import {
     Sheet,
     SheetContent,
-    SheetDescription,
-    SheetHeader,
-    SheetTitle,
-    SheetTrigger,
+    SheetTrigger
 } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 import { Menu } from "lucide-react";
-import Search from "@/components/search";
 
 export default function MobileMenu() {
 

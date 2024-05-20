@@ -1,5 +1,5 @@
 import "@/app/globals.css";
-import { AdminSidebar } from "@/components/admin-sidebar";
+import { AdminSidebar } from "@/components/layout/admin-sidebar";
 import type { Metadata } from "next";
 
 // metadata

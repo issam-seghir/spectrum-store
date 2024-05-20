@@ -1,7 +1,7 @@
 import { getProducts } from "@/lib/services";
 import { Product, ProductPageQueryParams } from "@/lib/types";
 // import ProductCard from "./product-card";
-import ProductCard from "@/components/product-card";
+import ProductCard from "@/components/products/product-card";
 
 export default async function ProductList({
     searchParams,

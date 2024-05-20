@@ -1,11 +1,10 @@
 import Link from "next/link";
 
+import Search from "@/components/header/search";
+import { ShopCartDrawer } from "@/components/header/shop-cart-drawer";
+import UserAvatarOptions from "@/components/header/user-avatar-options";
 import MobileMenu from "@/components/layout/mobile-navbar";
-import { ModeToggle } from "@/components/mode-toggler";
-import Search from "@/components/search";
-import { ShopCartDrawer } from "@/components/shop-cart-drawer";
-import UserAvatarOptions from "@/components/user-avatar-options";
-import Categories from "@/components/categories";
+import { ModeToggle } from "@/components/header/mode-toggler";
 
 export function Navbar() {
 

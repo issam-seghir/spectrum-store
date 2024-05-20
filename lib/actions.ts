@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 
-const API_URL = "https://fakestoreapi.com";
+const API_URL = process.env.API_URL;
 
 const loginSchema = z.object({
     username: z.string(),

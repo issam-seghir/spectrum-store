@@ -1,4 +1,4 @@
-import CategoriesItems from "@/components/categories-items";
+import CategoriesItems from "@/components/products/categories-items";
 import { getCategories } from "@/lib/services";
 import { ProductPageQueryParams } from "@/lib/types";
 

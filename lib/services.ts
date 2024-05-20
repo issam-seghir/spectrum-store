@@ -1,7 +1,8 @@
 import { Product } from "@/lib/types";
 import axios from "axios";
 
-const API_URL = "https://fakestoreapi.com";
+const API_URL = process.env.API_URL;
+
 
 /**
  *  Getting all products from fake store API
