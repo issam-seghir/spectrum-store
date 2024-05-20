@@ -55,8 +55,11 @@ export async function login( formData: FormData) {
     redirect("/");
 }
 
-
-export async function logout() {
+/**
+ ** Logs out the user by deleting the token cookie and redirecting to the login page.
+ * @returns {Promise<void>}
+ */
+export async function logout(): Promise<void> {
     cookies().delete("token");
     redirect("/login");
 }

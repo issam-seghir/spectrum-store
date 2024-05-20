@@ -49,7 +49,7 @@ export default function LogInPage() {
                                         name="username"
                                         placeholder="username"
                                         autoComplete="username"
-                                        
+                                        defaultValue={"mor_2314"}
                                         required
                                         disabled={pending}
                                     />
@@ -61,6 +61,7 @@ export default function LogInPage() {
                                         name="password"
                                         type="password"
                                         placeholder="****"
+                                        defaultValue={"83r5^_"}
                                         required
                                         disabled={pending}
                                     />

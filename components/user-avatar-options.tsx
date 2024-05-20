@@ -1,6 +1,8 @@
+"use client";
 import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
+import { logout } from "@/lib/actions";
 
 import {
     DropdownMenu,
@@ -35,7 +37,9 @@ export default function UserAvatarOptions() {
                 <DropdownMenuItem>Settings</DropdownMenuItem>
                 <DropdownMenuItem>Support</DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>Logout</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => logout()}>
+                    Logout
+                </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
     );
