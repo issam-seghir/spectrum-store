@@ -23,10 +23,6 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en" className="scroll-smooth" suppressHydrationWarning>
-            <body
-                className={`${inter.variable} m-0 box-border flex min-h-screen flex-col items-center overflow-x-hidden p-0  font-sans outline-none`}
-            >
                 <ThemeProvider
                     attribute="class"
                     defaultTheme="system"
@@ -40,7 +36,5 @@ export default function RootLayout({
                     <Footer />
                     <Toaster />
                 </ThemeProvider>
-            </body>
-        </html>
     );
 }

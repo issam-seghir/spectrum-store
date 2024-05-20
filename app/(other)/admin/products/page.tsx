@@ -1,12 +1,9 @@
-import { AdminSidebar } from "@/components/admin-sidebar";
 
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 function AdminProducts() {
     return (
-        <div className="flex h-screen">
-            <AdminSidebar />
             <div className="grid h-16 w-full grid-cols-3 items-center">
                 <div className="justify-self-center">
                     <Button>
@@ -24,7 +21,6 @@ function AdminProducts() {
                     </Button>
                 </div>
             </div>
-        </div>
     );
 }
 
