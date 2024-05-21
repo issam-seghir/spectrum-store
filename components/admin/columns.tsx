@@ -14,10 +14,24 @@ export const columns: ColumnDef<Product>[] = [
     {
         accessorKey: "price",
         header: "Price",
+        cell: ({ row }) => (
+            <div className="flex items-center gap-x-2">
+                <span className="text-lg font-semibold">
+                    ${row.original.price}
+                </span>
+            </div>
+        ),
     },
     {
         accessorKey: "rating",
         header: "Rating",
+        cell: ({ row }) => (
+            <div className="flex items-center gap-x-2">
+                <span className="text-lg font-semibold">
+                    {row.original.rating.rate}
+                </span>
+            </div>
+        ),
     },
     {
         accessorKey: "description",
@@ -28,10 +42,6 @@ export const columns: ColumnDef<Product>[] = [
         header: "Category",
     },
     {
-        accessorKey: "quantity",
-        header: "Quantity",
-    },
-    {
         accessorKey: "image",
         header: "Image",
         cell: ({ row }) => (
@@ -39,8 +49,8 @@ export const columns: ColumnDef<Product>[] = [
                 <Image
                     src={row.original.image}
                     alt={row.original.title}
-                    width={400}
-                    height={400}
+                    width={150}
+                    height={150}
                     className="max-w-[240px] rounded-2xl bg-white object-contain p-8 sm:max-w-[350px]"
                 />
             </div>

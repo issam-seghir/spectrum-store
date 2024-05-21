@@ -4,11 +4,7 @@ import { Separator } from "@/components/ui/separator";
 import { Overview } from "@/components/admin/overview-chart";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-interface DashboardPageProps {
-    params: {
-        storeId: string;
-    };
-}
+
 
 const generateRandomData = () => {
     const data = [];
@@ -20,7 +16,7 @@ const generateRandomData = () => {
     }
     return data;
 };
-const DashboardPage: React.FC<DashboardPageProps> = async ({ params }) => {
+const DashboardPage: React.FC = async () => {
 
 const graphRevenue = generateRandomData();
 
@@ -67,7 +63,7 @@ const graphRevenue = generateRandomData();
                             <Package className="h-4 w-4 text-muted-foreground" />
                         </CardHeader>
                         <CardContent>
-                            <div className="text-2xl font-bold">5474</div>
+                            <div className="text-2xl font-bold">25</div>
                         </CardContent>
                     </Card>
                 </div>

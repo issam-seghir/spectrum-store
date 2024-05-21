@@ -63,3 +63,75 @@ export async function logout(): Promise<void> {
     cookies().delete("token");
     redirect("/login");
 }
+
+
+/**
+ ** Creates a new product.
+ *
+ * @param {FormData} formData - The form data of the new product.
+ * @returns {Promise<Product>} A promise that resolves to the created product.
+ */
+export async function createProduct(formData: FormData) {
+    try {
+        const res = await axios.post(`${API_URL}/products`, formData);
+        console.log(res.data);
+
+        return res.data;
+    } catch (error) {
+        console.error(`Failed to create product:`, error?.response?.data);
+        return {
+            errors: {
+                title: "There was an error with this title",
+                description: "There was an error with this description",
+                price: "There was an error with this price",
+                image: "There was an error with this image",
+            },
+            message: error?.response?.data,
+        };
+    }
+}
+
+/**
+ * Updates an existing product.
+ *
+ * @param {string} id - The ID of the product to update.
+ * @param {FormData} formData - The updated form data of the product.
+ * @returns {Promise<Product>} A promise that resolves to the updated product.
+ */
+export async function updateProduct(id: string, formData: FormData) {
+    try {
+        const res = await axios.put(`${API_URL}/products/${id}`, formData);
+        console.log(res.data);
+        return res.data;
+    } catch (error) {
+        console.error(`Failed to update product:`, error?.response?.data);
+        return {
+            errors: {
+                title: "There was an error with this title",
+                description: "There was an error with this description",
+                price: "There was an error with this price",
+                image: "There was an error with this image",
+            },
+            message: error?.response?.data,
+        };
+    }
+}
+
+/**
+ * Deletes a product.
+ *
+ * @param {string} id - The ID of the product to delete.
+ * @returns {Promise<void>} A promise that resolves when the product is deleted.
+ */
+export async function deleteProduct(id: string) {
+    try {
+        const res = await axios.delete(`${API_URL}/products/${id}`);
+        console.log(res.data);
+        return res.data;
+    } catch (error) {
+        console.error(`Failed to delete product:`, error?.response?.data);
+        return {
+            message: error?.response?.data,
+        };
+    }
+}

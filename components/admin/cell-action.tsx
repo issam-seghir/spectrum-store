@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import { Product } from "@/lib/types";
-
+import { deleteProduct } from "@/lib/actions";
 interface CellActionProps {
     data: Product;
 }
@@ -31,11 +31,13 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
     const onConfirm = async () => {
         try {
             setLoading(true);
-            await axios.delete(`/api/${params.storeId}/products/${data.id}`);
-            toast.success("Product deleted.");
+            const res = await deleteProduct(data?.id);
+            toast.success(
+                `Product "${res.title}" (ID: ${res.id}, Category: ${res.category}) has been successfully deleted.`,
+            );
             router.refresh();
         } catch (error) {
-            toast.error("Something went wrong");
+            toast.error("Something went wrong while deleting the product.");
         } finally {
             setLoading(false);
             setOpen(false);
@@ -46,7 +48,6 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
         navigator.clipboard.writeText(id);
         toast.success("Product ID copied to clipboard.");
     };
-
 
     return (
         <>
@@ -65,13 +66,15 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
                     <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                    <DropdownMenuItem onClick={() => onCopy(data.id.toString())}>
+                    <DropdownMenuItem
+                        onClick={() => onCopy(data.id.toString())}
+                    >
                         <Copy className="mr-2 h-4 w-4" /> Copy Id
                     </DropdownMenuItem>
                     <DropdownMenuItem
                         onClick={() =>
                             router.push(
-                                `/${params.storeId}/products/${data.id}`,
+                                `/admin/products/${data.id}`,
                             )
                         }
                     >

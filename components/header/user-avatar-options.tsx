@@ -3,6 +3,7 @@ import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
 import { logout } from "@/lib/actions";
+import Link from "next/link";
 
 import {
     DropdownMenu,
@@ -35,7 +36,9 @@ export default function UserAvatarOptions() {
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem className="cursor-pointer">
-                    Admin
+                    <Link href={"/admin"} passHref>
+                        Dashboard
+                    </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
