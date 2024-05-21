@@ -20,10 +20,6 @@ export const verifySession = cache(async () => {
 
     const userId = Number(decoded?.sub);
     const isAdmin = userId === ADMIN_ROLE;
-    // Redirect to home page if the user is not an admin
-    if (isAdmin) {
-        redirect("/");
-    }
 
     return { isAuth: true, isAdmin, id: userId };
 });

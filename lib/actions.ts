@@ -3,6 +3,7 @@ import axios from "axios";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { z } from "zod";
+import { verifySession } from "@/lib/dal";
 
 const API_URL = process.env.API_URL;
 
@@ -72,10 +73,19 @@ export async function logout(): Promise<void> {
  * @returns {Promise<Product>} A promise that resolves to the created product.
  */
 export async function createProduct(formData: FormData) {
+    // For enhanced security, the verifySession function can be used to authenticate the user.
+    // While middleware is a viable option, verifySession can also be directly utilized within services.
+    // We can use it also for checking the user role and other user data.
+    // This forms part of the Data Access Layer (DAL).
+    const session = await verifySession();
+    if (!session) return [];
+    // Redirect to home page if the user is not the Admin
+    if (!session.isAdmin) {
+        redirect("/");
+    };
+
     try {
         const res = await axios.post(`${API_URL}/products`, formData);
-        console.log(res.data);
-
         return res.data;
     } catch (error) {
         console.error(`Failed to create product:`, error?.response?.data);
@@ -99,6 +109,17 @@ export async function createProduct(formData: FormData) {
  * @returns {Promise<Product>} A promise that resolves to the updated product.
  */
 export async function updateProduct(id: string, formData: FormData) {
+    // For enhanced security, the verifySession function can be used to authenticate the user.
+    // While middleware is a viable option, verifySession can also be directly utilized within services.
+    // We can use it also for checking the user role and other user data.
+    // This forms part of the Data Access Layer (DAL).
+    const session = await verifySession();
+    if (!session) return [];
+    // Redirect to home page if the user is not the Admin
+    if (!session.isAdmin) {
+        redirect("/");
+    }
+
     try {
         const res = await axios.put(`${API_URL}/products/${id}`, formData);
         console.log(res.data);
@@ -124,6 +145,17 @@ export async function updateProduct(id: string, formData: FormData) {
  * @returns {Promise<void>} A promise that resolves when the product is deleted.
  */
 export async function deleteProduct(id: string) {
+    // For enhanced security, the verifySession function can be used to authenticate the user.
+    // While middleware is a viable option, verifySession can also be directly utilized within services.
+    // We can use it also for checking the user role and other user data.
+    // This forms part of the Data Access Layer (DAL).
+    const session = await verifySession();
+    if (!session) return [];
+    // Redirect to home page if the user is not the Admin
+    if (!session.isAdmin) {
+        redirect("/");
+    }
+
     try {
         const res = await axios.delete(`${API_URL}/products/${id}`);
         console.log(res.data);
