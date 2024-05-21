@@ -4,6 +4,32 @@ import axios from "axios";
 const API_URL = process.env.API_URL;
 
 /**
+ * Getting a single product from fake store API
+ *
+ * @export
+ * @param {number} id - The ID of the product.
+ * @return {Promise<Product>} - A promise that resolves to the product.
+ * @throws {AxiosError} When the API request fails.
+ */
+export async function getProduct(id: number): Promise<Product | null> {
+    // For enhanced security, the verifySession function can be used to authenticate the user.
+    // While middleware is a viable option, verifySession can also be directly utilized within services.
+    // We can use it also for checking the user role and other user data.
+    // This forms part of the Data Access Layer (DAL).
+    const session = await verifySession();
+    if (!session) return null;
+
+    try {
+        const url = `${API_URL}/products/${id}`;
+        const { data } = await axios.get<Product>(url);
+        return data;
+    } catch (error) {
+        console.error(`Failed to fetch products:`, error);
+        return null;
+    }
+}
+
+/**
  *  Getting all products from fake store API
  *
  * @export
@@ -68,11 +94,11 @@ export async function getCategories(): Promise<string[]> {
 
 /**
  * Getting a specific product by its ID
- * @param {number | string} id - The ID of the product to fetch.
+ * @param {string} id - The ID of the product to fetch.
  * @returns {Promise<Product> | null} A promise that resolves to the fetched product.
  */
 export async function getProductById(
-    id: number | string,
+    id: string,
 ): Promise<Product | null> {
     // For enhanced security, the verifySession function can be used to authenticate the user.
     // While middleware is a viable option, verifySession can also be directly utilized within services.
