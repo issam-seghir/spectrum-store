@@ -6,6 +6,12 @@ import { NextRequest, NextResponse } from "next/server";
 //? it will check if the user is authenticated or not (authorization)
 //? and redirect them to the appropriate page
 
+
+
+// Admin role : represents the admin user id in the fakestoreapi db
+const ADMIN_ROLE: number = 2;
+
+
 // allowedOrigins for CORS
 const allowedOrigins = [process.env.SITE_URL];
 
@@ -23,6 +29,7 @@ const protectedRoutes = [
     "/admin",
     "/admin/:path*", //  target all paths under /admin
 ];
+const adminRoutes = ["/admin", "/admin/:path*"];
 const publicRoutes = ["/login", "/signup"];
 
 export default async function middleware(req: NextRequest) {
@@ -57,7 +64,7 @@ export default async function middleware(req: NextRequest) {
 
     const isProtectedRoute = protectedRoutes.includes(path);
     const isPublicRoute = publicRoutes.includes(path);
-
+    const isAdminRoute = adminRoutes.includes(path);
     // 3. Decrypt the token from the cookie
     const token = cookies().get("token")?.value;
     const decoded = jwt.decode(token);
@@ -69,6 +76,14 @@ export default async function middleware(req: NextRequest) {
 
     // 6. Redirect to home page if the user is authenticated
     if (isPublicRoute && decoded?.user) {
+        return NextResponse.redirect(new URL("/", req.nextUrl));
+    }
+    
+    // 7. Redirect to home page if the user is not an admin
+    const userId = Number(decoded?.sub);
+    const isAdmin = userId === ADMIN_ROLE;
+
+    if (isAdminRoute && !isAdmin) {
         return NextResponse.redirect(new URL("/", req.nextUrl));
     }
 

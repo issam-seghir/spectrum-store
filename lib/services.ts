@@ -1,6 +1,6 @@
 import { Product } from "@/lib/types";
 import axios from "axios";
-
+import { verifySession } from "@/lib/dal";
 const API_URL = process.env.API_URL;
 
 
@@ -16,6 +16,7 @@ export async function getProducts(
     query?: string,
 ): Promise<Product[]> {
     try {
+        verifySession();
         const url = new URL(`${API_URL}/products`);
         if (category) {
             url.pathname += `/category/${category}`;
