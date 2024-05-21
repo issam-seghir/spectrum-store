@@ -18,6 +18,7 @@ import {
 
 import { Product } from "@/lib/types";
 import { deleteProduct } from "@/lib/actions";
+import Image from "next/image";
 interface CellActionProps {
     data: Product;
 }
@@ -31,13 +32,53 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
     const onConfirm = async () => {
         try {
             setLoading(true);
-            const res = await deleteProduct(data?.id);
-            toast.success(
-                `Product "${res.title}" (ID: ${res.id}, Category: ${res.category}) has been successfully deleted.`,
+            toast.promise(
+                deleteProduct(data.id.toString()),
+                {
+                    loading: "Deleting...🧨",
+                    success: (res) => (
+                        <div className="w-full flex-1 p-4">
+                            <div className="flex items-start">
+                                <div className="flex-shrink-0 pt-0.5">
+                                    <Image
+                                        className="h-20 w-20 rounded-md"
+                                        width={80}
+                                        height={80}
+                                        src={res.image}
+                                        alt={res.title}
+                                    />
+                                </div>
+                                <div className="ml-3 flex-1">
+                                    <p className="text-sm font-medium text-gray-900">
+                                        Product {res.id} -{" "}
+                                        {res.title.slice(0, 10)}{" "}
+                                        <span className="font-bold text-red-700">
+                                            Deleted
+                                        </span>
+                                    </p>
+                                    <p className="mt-1 text-sm text-gray-500">
+                                        Category: {res.category}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    ),
+                    error: (err) => (
+                        <b>
+                            Could not delete product. Error:{" "}
+                            {err.message.toString()}
+                        </b>
+                    ),
+                },
+                {
+                    style: {
+                        minWidth: "250px",
+                    },
+                    success: {
+                        duration: 3000,
+                    },
+                },
             );
-            router.refresh();
-        } catch (error) {
-            toast.error("Something went wrong while deleting the product.");
         } finally {
             setLoading(false);
             setOpen(false);
