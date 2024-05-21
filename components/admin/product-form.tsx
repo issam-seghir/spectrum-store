@@ -1,5 +1,4 @@
 "use client";
-import { v4 as uuidv4 } from "uuid";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { Trash } from "lucide-react";
@@ -7,6 +6,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
+import { v4 as uuidv4 } from "uuid";
 import * as z from "zod";
 
 import { AlertModal } from "@/components/ui/alert-modal";
@@ -33,6 +33,7 @@ import {
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
 import { Product, ProductCategory } from "@/lib/types";
+import Image from "next/image";
 
 const formSchema = z.object({
     title: z.string().min(1),
@@ -55,7 +56,7 @@ interface ProductFormProps {
     product?: Product | null;
 }
 
-const categories = Object.values(ProductCategory) ;
+const categories = Object.values(ProductCategory);
 
 export const ProductForm: React.FC<ProductFormProps> = ({ product }) => {
     const params = useParams();
@@ -87,7 +88,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ product }) => {
         resolver: zodResolver(formSchema),
         defaultValues,
     });
-form.getValues();
+    form.getValues();
     const onSubmit = async (data: ProductFormValues) => {
         try {
             console.log(data);
@@ -152,8 +153,6 @@ form.getValues();
                     // onSubmit={form.handleSubmit(onSubmit)}
                     action={async (formData) => {
                         try {
-                            console.log(formData.get("category"));
-
                             setLoading(true);
                             if (product) {
                                 const {
@@ -164,9 +163,53 @@ form.getValues();
                                     product.id.toString(),
                                     formData,
                                 );
-                                console.log(errors);
-                                console.log(message);
-                                console.log(data);
+                                toast.custom(
+                                    (t) => (
+                                        <div
+                                            className={`${
+                                                t.visible
+                                                    ? "animate-enter"
+                                                    : "animate-leave"
+                                            } pointer-events-auto flex w-full max-w-md rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5`}
+                                        >
+                                            <div className="w-full flex-1 p-4">
+                                                <div className="flex items-start">
+                                                    <div className="flex-shrink-0 pt-0.5">
+                                                        <Image
+                                                            className="h-20 w-20 rounded-md"
+                                                            width={80}
+                                                            height={80}
+                                                            src={data.image}
+                                                            alt={data.title}
+                                                        />
+                                                    </div>
+                                                    <div className="ml-3 flex-1">
+                                                        <p className="text-sm font-medium text-gray-900">
+                                                            Product {data.id} -
+                                                            {data.title.slice(
+                                                                0,
+                                                                10,
+                                                            )}
+                                                        </p>
+                                                        <p className="mt-1 text-sm text-gray-500">
+                                                            Category:
+                                                            {data.category}
+                                                        </p>
+                                                        <div className="font-bold text-green-500">
+                                                            Created
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ),
+                                    {
+                                        style: {
+                                            minWidth: "250px",
+                                        },
+                                        duration: 3000,
+                                    },
+                                );
                             } else {
                                 await createProduct(formData);
                             }
