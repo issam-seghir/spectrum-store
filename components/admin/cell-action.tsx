@@ -1,12 +1,11 @@
 "use client";
 
-import axios from "axios";
 import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 
-import { AlertModal } from "@/components/admin/alert-modal";
+import { AlertModal } from "@/components/ui/alert-modal";
 import { Button } from "@/components/ui/button";
 import {
     DropdownMenu,
@@ -16,8 +15,8 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import { Product } from "@/lib/types";
 import { deleteProduct } from "@/lib/actions";
+import { Product } from "@/lib/types";
 import Image from "next/image";
 interface CellActionProps {
     data: Product;

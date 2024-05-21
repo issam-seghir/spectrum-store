@@ -8,6 +8,13 @@ export type Product = {
     rating: Rating;
 };
 
+export enum ProductCategory {
+    Electronics = "electronics",
+    Jewelery = "jewelery",
+    MenClothing = "men's clothing",
+    WomenClothing = "women's clothing",
+}
+
 export interface Rating {
     rate: number;
     count: number;
