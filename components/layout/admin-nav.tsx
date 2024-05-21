@@ -44,9 +44,9 @@ console.log(pathname);
             )}
             {...props}
         >
-            {routes.map((route) => (
+            {routes.map((route, index) => (
                 <Link
-                    key={route.href}
+                    key={index}
                     href={route.href}
                     className={cn(
                         "text-sm font-medium transition-colors hover:text-primary",

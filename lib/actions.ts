@@ -1,10 +1,11 @@
 "use server";
+import { verifySession } from "@/lib/dal";
+import { ProductCategory } from "@/lib/types";
 import axios from "axios";
+import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { z } from "zod";
-import { verifySession } from "@/lib/dal";
-
 const API_URL = process.env.API_URL;
 
 const loginSchema = z.object({
@@ -12,13 +13,12 @@ const loginSchema = z.object({
     password: z.string(),
 });
 
-
 /**
  ** Login in user  Action
  * @param {string} username - the username of user
  * @param {string} password - the password of user
  */
-export async function login( formData: FormData) {
+export async function login(formData: FormData) {
     try {
         const validatedFields = loginSchema.safeParse({
             username: formData.get("username"),
@@ -34,7 +34,7 @@ export async function login( formData: FormData) {
             `${API_URL}/auth/login`,
             validatedFields.data,
         );
-        const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+        const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
         // Set cookie
         cookies().set("token", res?.data?.token, {
             httpOnly: true,
@@ -65,6 +65,20 @@ export async function logout(): Promise<void> {
     redirect("/login");
 }
 
+const formSchema = z.object({
+    title: z.string().min(1),
+    price: z.coerce.number().min(1),
+    description: z
+        .string()
+        .min(10, {
+            message: "description must be at least 10 characters.",
+        })
+        .max(160, {
+            message: "description must not be longer than 30 characters.",
+        }),
+    category: z.nativeEnum(ProductCategory),
+    image: z.string().url(),
+});
 
 /**
  ** Creates a new product.
@@ -82,11 +96,31 @@ export async function createProduct(formData: FormData) {
     // Redirect to home page if the user is not the Admin
     if (!session.isAdmin) {
         redirect("/");
-    };
+    }
 
     try {
-        const res = await axios.post(`${API_URL}/products`, formData);
-        return res.data;
+        const validatedFields = formSchema.safeParse({
+            title: formData.get("title"),
+            price: formData.get("price"),
+            description: formData.get("description"),
+            category: formData.get("category"),
+            image: formData.get("image"),
+        });
+
+        // Return early if the form data is invalid
+        if (!validatedFields.success) {
+            return {
+                errors: validatedFields.error.flatten().fieldErrors,
+            };
+        }
+        const res = await axios.post(
+            `${API_URL}/products`,
+            validatedFields.data,
+        );
+
+        revalidatePath("/admin/products");
+        revalidatePath("/products");
+        return { message: "Create Product successfully", data: res.data };
     } catch (error) {
         console.error(`Failed to create product:`, error?.response?.data);
         return {
@@ -94,6 +128,7 @@ export async function createProduct(formData: FormData) {
                 title: "There was an error with this title",
                 description: "There was an error with this description",
                 price: "There was an error with this price",
+                category: "There was an error with this category",
                 image: "There was an error with this image",
             },
             message: error?.response?.data,
@@ -121,9 +156,28 @@ export async function updateProduct(id: string, formData: FormData) {
     }
 
     try {
-        const res = await axios.put(`${API_URL}/products/${id}`, formData);
-        console.log(res.data);
-        return res.data;
+        const validatedFields = formSchema.safeParse({
+            title: formData.get("title"),
+            price: formData.get("price"),
+            description: formData.get("description"),
+            category: formData.get("category"),
+            image: formData.get("image"),
+        });
+
+        // Return early if the form data is invalid
+        if (!validatedFields.success) {
+            return {
+                errors: validatedFields.error.flatten().fieldErrors,
+            };
+        }
+        const res = await axios.put(
+            `${API_URL}/products/${id}`,
+            validatedFields.data,
+        );
+
+        revalidatePath("/admin/products");
+        revalidatePath("/products");
+        return { message: "Update Product successfully", data: res.data };
     } catch (error) {
         console.error(`Failed to update product:`, error?.response?.data);
         return {
@@ -131,6 +185,7 @@ export async function updateProduct(id: string, formData: FormData) {
                 title: "There was an error with this title",
                 description: "There was an error with this description",
                 price: "There was an error with this price",
+                category: "There was an error with this category",
                 image: "There was an error with this image",
             },
             message: error?.response?.data,

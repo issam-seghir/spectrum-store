@@ -1,5 +1,5 @@
 "use client";
-
+import { v4 as uuidv4 } from "uuid";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { Trash } from "lucide-react";
@@ -11,11 +11,9 @@ import * as z from "zod";
 
 import { AlertModal } from "@/components/ui/alert-modal";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
     Form,
     FormControl,
-    FormDescription,
     FormField,
     FormItem,
     FormLabel,
@@ -24,7 +22,7 @@ import {
 import { Heading } from "@/components/ui/heading";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-
+import { createProduct, updateProduct } from "@/lib/actions";
 
 import {
     Select,
@@ -34,8 +32,8 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
-import { ProductCategory } from "@/lib/types";
-import { Product } from "../../lib/types";
+import { Product, ProductCategory } from "@/lib/types";
+
 const formSchema = z.object({
     title: z.string().min(1),
     price: z.coerce.number().min(1),
@@ -47,22 +45,19 @@ const formSchema = z.object({
         .max(160, {
             message: "description must not be longer than 30 characters.",
         }),
-    category: z.enum(Object.values(ProductCategory).map(String) as any),
+    category: z.nativeEnum(ProductCategory),
     image: z.string().url(),
 });
 
 type ProductFormValues = z.infer<typeof formSchema>;
 
 interface ProductFormProps {
-    product?: Product | null
+    product?: Product | null;
 }
 
-const categories = Object.values(ProductCategory);
+const categories = Object.values(ProductCategory) ;
 
-export const ProductForm: React.FC<ProductFormProps> = ({
-    product,
-}) => {
-
+export const ProductForm: React.FC<ProductFormProps> = ({ product }) => {
     const params = useParams();
     const router = useRouter();
 
@@ -78,12 +73,13 @@ export const ProductForm: React.FC<ProductFormProps> = ({
         ? {
               ...product,
               price: parseFloat(String(product?.price)),
+              category: product.category as ProductCategory,
           }
         : {
               title: "",
               price: 0,
               description: "",
-              category: "",
+              category: ProductCategory.Electronics,
               image: "",
           };
 
@@ -91,21 +87,20 @@ export const ProductForm: React.FC<ProductFormProps> = ({
         resolver: zodResolver(formSchema),
         defaultValues,
     });
-
+form.getValues();
     const onSubmit = async (data: ProductFormValues) => {
         try {
-            setLoading(true);
-            if (product) {
-                await axios.patch(
-                    `/api/${params.storeId}/products/${params.productId}`,
-                    data,
-                );
-            } else {
-                await axios.post(`/api/${params.storeId}/products`, data);
-            }
-            router.refresh();
-            router.push(`/${params.storeId}/products`);
-            toast.success(toastMessage);
+            console.log(data);
+
+            // setLoading(true);
+            // if (product) {
+            //     await updateProduct(product.id.toString(),data);
+            // } else {
+            //     await createProduct(data);
+            // }
+            // router.refresh();
+            // router.push(`/${params.storeId}/products`);
+            // toast.success(toastMessage);
         } catch (error: any) {
             toast.error("Something went wrong.");
         } finally {
@@ -154,7 +149,36 @@ export const ProductForm: React.FC<ProductFormProps> = ({
             <Separator />
             <Form {...form}>
                 <form
-                    onSubmit={form.handleSubmit(onSubmit)}
+                    // onSubmit={form.handleSubmit(onSubmit)}
+                    action={async (formData) => {
+                        try {
+                            console.log(formData.get("category"));
+
+                            setLoading(true);
+                            if (product) {
+                                const {
+                                    errors,
+                                    message = "",
+                                    data,
+                                } = await updateProduct(
+                                    product.id.toString(),
+                                    formData,
+                                );
+                                console.log(errors);
+                                console.log(message);
+                                console.log(data);
+                            } else {
+                                await createProduct(formData);
+                            }
+                            // router.refresh();
+                            // router.push(`/${params.storeId}/products`);
+                            // toast.success(toastMessage);
+                        } catch (error: any) {
+                            toast.error("Something went wrong.");
+                        } finally {
+                            setLoading(false);
+                        }
+                    }}
                     className="w-full space-y-8"
                 >
                     <div className="gap-8 md:grid md:grid-cols-3">
@@ -237,9 +261,9 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                                     <FormLabel>Category</FormLabel>
                                     <Select
                                         disabled={loading}
-                                        onValueChange={field.onChange}
-                                        value={field.value}
                                         defaultValue={field.value}
+                                        onValueChange={field.onChange}
+                                        {...field}
                                     >
                                         <FormControl>
                                             <SelectTrigger>
@@ -250,16 +274,14 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                                             </SelectTrigger>
                                         </FormControl>
                                         <SelectContent>
-                                            {categories.map(
-                                                (category, index) => (
-                                                    <SelectItem
-                                                        key={index}
-                                                        value={category}
-                                                    >
-                                                        {category}
-                                                    </SelectItem>
-                                                ),
-                                            )}
+                                            {categories.map((category) => (
+                                                <SelectItem
+                                                    key={uuidv4()}
+                                                    value={category}
+                                                >
+                                                    {category}
+                                                </SelectItem>
+                                            ))}
                                         </SelectContent>
                                     </Select>
                                     <FormMessage />
