@@ -1,6 +1,5 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
 import { Trash } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
@@ -22,7 +21,7 @@ import {
 import { Heading } from "@/components/ui/heading";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { createProduct, updateProduct } from "@/lib/actions";
+import { createProduct, deleteProduct, updateProduct } from "@/lib/actions";
 
 import {
     Select,
@@ -88,38 +87,59 @@ export const ProductForm: React.FC<ProductFormProps> = ({ product }) => {
         resolver: zodResolver(formSchema),
         defaultValues,
     });
-    form.getValues();
-    const onSubmit = async (data: ProductFormValues) => {
-        try {
-            console.log(data);
-
-            // setLoading(true);
-            // if (product) {
-            //     await updateProduct(product.id.toString(),data);
-            // } else {
-            //     await createProduct(data);
-            // }
-            // router.refresh();
-            // router.push(`/${params.storeId}/products`);
-            // toast.success(toastMessage);
-        } catch (error: any) {
-            toast.error("Something went wrong.");
-        } finally {
-            setLoading(false);
-        }
-    };
 
     const onDelete = async () => {
         try {
             setLoading(true);
-            await axios.delete(
-                `/api/${params.storeId}/products/${params.productId}`,
+            toast.promise(
+                deleteProduct(product.id.toString()),
+                {
+                    loading: "Deleting...🧨",
+                    success: (res) => (
+                        <div className="w-full flex-1 p-4">
+                            <div className="flex items-start">
+                                <div className="flex-shrink-0 pt-0.5">
+                                    <Image
+                                        className="h-20 w-20 rounded-md"
+                                        width={80}
+                                        height={80}
+                                        src={res.image}
+                                        alt={res.title}
+                                    />
+                                </div>
+                                <div className="ml-3 flex-1">
+                                    <p className="text-sm font-medium text-gray-900">
+                                        Product {res.id} -{" "}
+                                        {res.title.slice(0, 10)}{" "}
+                                        <span className="font-bold text-red-700">
+                                            Deleted
+                                        </span>
+                                    </p>
+                                    <p className="mt-1 text-sm text-gray-500">
+                                        Category: {res.category}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    ),
+                    error: (err) => (
+                        <b>
+                            Could not delete product. Error:{" "}
+                            {err.message.toString()}
+                        </b>
+                    ),
+                },
+                {
+                    style: {
+                        minWidth: "250px",
+                    },
+                    success: {
+                        duration: 3000,
+                    },
+                },
             );
             router.refresh();
-            router.push(`/${params.storeId}/products`);
-            toast.success("Product deleted.");
-        } catch (error: any) {
-            toast.error("Something went wrong.");
+            router.push("../products");
         } finally {
             setLoading(false);
             setOpen(false);
@@ -196,7 +216,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ product }) => {
                                                             {data.category}
                                                         </p>
                                                         <div className="font-bold text-green-500">
-                                                            Created
+                                                            Updated 🚀
                                                         </div>
                                                     </div>
                                                 </div>
@@ -211,13 +231,64 @@ export const ProductForm: React.FC<ProductFormProps> = ({ product }) => {
                                     },
                                 );
                             } else {
-                                await createProduct(formData);
+                                setLoading(true);
+                                const {
+                                    errors,
+                                    message = "",
+                                    data,
+                                } = await createProduct(formData);
+                                toast.custom(
+                                    (t) => (
+                                        <div
+                                            className={`${
+                                                t.visible
+                                                    ? "animate-enter"
+                                                    : "animate-leave"
+                                            } pointer-events-auto flex w-full max-w-md rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5`}
+                                        >
+                                            <div className="w-full flex-1 p-4">
+                                                <div className="flex items-start">
+                                                    <div className="flex-shrink-0 pt-0.5">
+                                                        <Image
+                                                            className="h-20 w-20 rounded-md"
+                                                            width={80}
+                                                            height={80}
+                                                            src={data.image}
+                                                            alt={data.title}
+                                                        />
+                                                    </div>
+                                                    <div className="ml-3 flex-1">
+                                                        <p className="text-sm font-medium text-gray-900">
+                                                            Product {data.id} -
+                                                            {data.title.slice(
+                                                                0,
+                                                                10,
+                                                            )}
+                                                        </p>
+                                                        <p className="mt-1 text-sm text-gray-500">
+                                                            Category:
+                                                            {data.category}
+                                                        </p>
+                                                        <div className="font-bold text-green-500">
+                                                            Created 🚀
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ),
+                                    {
+                                        style: {
+                                            minWidth: "250px",
+                                        },
+                                        duration: 3000,
+                                    },
+                                );
+                                router.refresh();
+                                router.push("../products");
                             }
-                            // router.refresh();
-                            // router.push(`/${params.storeId}/products`);
-                            // toast.success(toastMessage);
                         } catch (error: any) {
-                            toast.error("Something went wrong.");
+                            toast.error("Something went wrong.", error.message);
                         } finally {
                             setLoading(false);
                         }
