@@ -16,10 +16,10 @@
 
   <p align="center">
 
-  **Spectrum Store  | A Next.js & TypeScript , Shadcn, powered e-commerce platform**
+  **Spectrum Store | A Robust E-commerce Platform Powered by Next.js, TypeScript, and Shadcn**
 
   **That leverages the [Fake Store API](https://fakestoreapi.com), It features an Admin dashboard and JWT auth.**
-  following best secure technique in mind routes and server actions
+ Designed with a focus on security, it implements best practices for routing and server actions.
     <br />
     <br />
     <a href="https://issam-seghir.github.io/spectrum-store/">View Demo</a>
@@ -40,11 +40,11 @@
 
 ### Built With
 
-![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
-![Next JS](<https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white>
-- ![JOY](https://img.shields.io/badge/JOYUI-%230081CB.svg?style=for-the-badge&logo=mui&logoColor=white)
-- ![Syncfusion](https://custom-icon-badges.demolab.com/badge/syncfusion-113451?style=for-the-badge&logo=syncfusion&&logoColor=113451&)
-- ![million](https://custom-icon-badges.demolab.com/badge/million-%23AF73D8.svg?style=for-the-badge&logo=million&logoColor=white)
+- ![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)
+- ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+- ![Tailwind](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+- ![Shadcn](https://img.shields.io/badge/shadcn%2Fui-000000?style=for-the-badge&logo=shadcnui&logoColor=white)
+- ![Zod](https://img.shields.io/badge/zod-%233068b7.svg?style=for-the-badge&logo=zod&logoColor=white)
 - ![Leaflet](https://custom-icon-badges.demolab.com/badge/leaflet-41B883?style=for-the-badge&logo=leaflet&&logoColor=256b4c&)
 - ![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
 
