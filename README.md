@@ -83,6 +83,14 @@
   - **useranme** : mor_2314
   - **password** : 83r5^_
 
+- You can open Admin dashboard and do CRUD on proudcts by following these steps :
+  - make sure you login with admin account (**mor_2314**)
+  - click on **user icon**
+  - click on **dashboard**
+
+![alt text](https://i.imgur.com/ilqf5lL.png)
+![alt text](https://i.imgur.com/Iq1jFlf.png)
+![alt text](https://i.imgur.com/UnkbCGJ.png)
 ## Getting Started
 
 First, run the development server:
