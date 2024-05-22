@@ -67,7 +67,10 @@ export default async function middleware(req: NextRequest) {
     const isAdminRoute = adminRoutes.includes(path);
     // 3. Decrypt the token from the cookie
     const token = cookies().get("token")?.value;
-    const decoded = jwt.decode(token);
+    let decoded: any = null;
+    if (token) {
+        decoded = jwt.decode(token);
+    }
 
     // 5. Redirect to /login if the user is not authenticated
     if (isProtectedRoute && !decoded?.user) {
@@ -78,7 +81,7 @@ export default async function middleware(req: NextRequest) {
     if (isPublicRoute && decoded?.user) {
         return NextResponse.redirect(new URL("/", req.nextUrl));
     }
-    
+
     // 7. Redirect to home page if the user is not an admin
     const userId = Number(decoded?.sub);
     const isAdmin = userId === ADMIN_ROLE;
