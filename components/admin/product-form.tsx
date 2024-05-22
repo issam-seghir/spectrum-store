@@ -171,9 +171,16 @@ export const ProductForm: React.FC<ProductFormProps> = ({ product }) => {
                                             className="h-20 w-20 rounded-md"
                                             width={80}
                                             height={80}
-                                            
+                                            loader={({ src }) => src}
                                             src={data.image}
                                             alt={data.title}
+                                            // fallback Image
+                                            onError={(event) => {
+                                                event.target.id =
+                                                    "https://i.imgur.com/zAC10no.png";
+                                                event.target.srcset =
+                                                    "https://i.imgur.com/zAC10no.png";
+                                            }}
                                         />
                                     </div>
                                     <div className="ml-3 flex-1">
@@ -273,13 +280,21 @@ export const ProductForm: React.FC<ProductFormProps> = ({ product }) => {
                 isOpen={open}
                 onClose={() => setOpen(false)}
                 onConfirm={onDelete}
-                loading={loading}
+                loading={
+                    loading ||
+                    form.formState.isLoading ||
+                    form.formState.isSubmitting
+                }
             />
             <div className="flex items-center justify-between">
                 <Heading title={title} description={description} />
                 {product && (
                     <Button
-                        disabled={loading}
+                        disabled={
+                            loading ||
+                            form.formState.isLoading ||
+                            form.formState.isSubmitting
+                        }
                         variant="destructive"
                         size="sm"
                         onClick={() => setOpen(true)}
@@ -300,7 +315,11 @@ export const ProductForm: React.FC<ProductFormProps> = ({ product }) => {
                                     <FormLabel>Title</FormLabel>
                                     <FormControl>
                                         <Input
-                                            disabled={loading}
+                                            disabled={
+                                                loading ||
+                                                form.formState.isLoading ||
+                                                form.formState.isSubmitting
+                                            }
                                             placeholder="Product name"
                                             {...field}
                                         />
@@ -317,7 +336,11 @@ export const ProductForm: React.FC<ProductFormProps> = ({ product }) => {
                                     <FormLabel>Description</FormLabel>
                                     <FormControl>
                                         <Textarea
-                                            disabled={loading}
+                                            disabled={
+                                                loading ||
+                                                form.formState.isLoading ||
+                                                form.formState.isSubmitting
+                                            }
                                             placeholder="Product description"
                                             className="resize-none"
                                             {...field}
@@ -336,7 +359,11 @@ export const ProductForm: React.FC<ProductFormProps> = ({ product }) => {
                                     <FormControl>
                                         <Input
                                             type="number"
-                                            disabled={loading}
+                                            disabled={
+                                                loading ||
+                                                form.formState.isLoading ||
+                                                form.formState.isSubmitting
+                                            }
                                             placeholder="9.99$"
                                             {...field}
                                         />
@@ -354,7 +381,11 @@ export const ProductForm: React.FC<ProductFormProps> = ({ product }) => {
                                     <FormControl>
                                         <Input
                                             type="url"
-                                            disabled={loading}
+                                            disabled={
+                                                loading ||
+                                                form.formState.isLoading ||
+                                                form.formState.isSubmitting
+                                            }
                                             placeholder="https://example.com/image.jpg"
                                             {...field}
                                         />
@@ -370,7 +401,11 @@ export const ProductForm: React.FC<ProductFormProps> = ({ product }) => {
                                 <FormItem>
                                     <FormLabel>Category</FormLabel>
                                     <Select
-                                        disabled={loading}
+                                        disabled={
+                                            loading ||
+                                            form.formState.isLoading ||
+                                            form.formState.isSubmitting
+                                        }
                                         defaultValue={field.value}
                                         onValueChange={field.onChange}
                                         {...field}
@@ -400,7 +435,11 @@ export const ProductForm: React.FC<ProductFormProps> = ({ product }) => {
                         />
                     </div>
                     <Button
-                        disabled={loading}
+                        disabled={
+                            loading ||
+                            form.formState.isLoading ||
+                            form.formState.isSubmitting
+                        }
                         className="ml-auto"
                         type="submit"
                     >
