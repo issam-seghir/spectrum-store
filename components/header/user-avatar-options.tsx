@@ -1,7 +1,6 @@
 import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -11,13 +10,14 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { getCurrentUser } from "@/lib/services";
-import {User} from "@/lib/types";
-import { LogoutButton } from "./logout-button";
-import { capitalizeFirstCharOfEveryWord } from "../../lib/utils";
+import { User } from "@/lib/types";
+import clsx from "clsx";
+import Link from "next/link";
+import { capitalizeFirstCharOfEveryWord } from "@/lib/utils";
+import { LogoutButton } from "@/components/header/logout-button";
 
 export default async function UserAvatarOptions() {
     const user: User | null = await getCurrentUser();
-console.log(user);
 
     return (
         <DropdownMenu>
@@ -25,7 +25,10 @@ console.log(user);
                 <Button
                     variant="outline"
                     size="icon"
-                    className="overflow-hidden rounded-full border-yellow-400"
+                    className={clsx(
+                        "overflow-hidden rounded-full ",
+                        user?.isAdmin && "border-yellow-400",
+                    )}
                 >
                     <Image
                         src={
@@ -46,13 +49,15 @@ console.log(user);
                         user?.name?.firstname + " " + user?.name?.lastname,
                     )}
                 </DropdownMenuLabel>
-                <DropdownMenuSeparator />
                 {user?.isAdmin && (
-                    <DropdownMenuItem className="cursor-pointer">
-                        <Link href={"/admin"} passHref>
-                            Dashboard
-                        </Link>
-                    </DropdownMenuItem>
+                    <>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem className="cursor-pointer">
+                            <Link href={"/admin"} passHref>
+                                Dashboard
+                            </Link>
+                        </DropdownMenuItem>
+                    </>
                 )}
                 <DropdownMenuSeparator />
                 <LogoutButton />
