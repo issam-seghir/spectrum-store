@@ -213,7 +213,6 @@ export async function deleteProduct(id: string) {
 
     try {
         const res = await axios.delete(`${API_URL}/products/${id}`);
-        console.log(res.data);
         return res.data;
     } catch (error: any) {
         console.error(`Failed to delete product:`, error?.response?.data);
