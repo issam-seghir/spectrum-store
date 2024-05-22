@@ -1,20 +1,41 @@
 <div align="center">
 
 
-<img src="/app/icon.ico" alt="Alt text" width="250" height="250">
+<img src="logo.png" alt="Alt text">
 
 <h1 align="center" >Spectrum Store</h1>
 
-![cntr](https://img.shields.io/github/contributors/issam-seghir/astralyn?color=pink&style=for-the-badge)
-![pullreQ](https://img.shields.io/github/issues-pr/issam-seghir/astralyn?color=orange&style=for-the-badge)
-![comt](https://img.shields.io/github/last-commit/issam-seghir/astralyn?style=for-the-badge)
-[![GPL3 License](https://img.shields.io/badge/License-GPL3-green.svg?style=for-the-badge)](https://choosealicense.com/licenses/gpl-3.0/)
+![cntr](https://img.shields.io/github/contributors/issam-seghir/spectrum-store?color=pink&style=for-the-badge)
+![pullreQ](https://img.shields.io/github/issues-pr/issam-seghir/spectrum-store?color=orange&style=for-the-badge)
+![comt](https://img.shields.io/github/last-commit/issam-seghir/spectrum-store?style=for-the-badge)
+[![MIT License](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](https://choosealicense.com/licenses/mit/)
 
-![frk](https://img.shields.io/github/forks/issam-seghir/astralyn?style=flat-square)
-![str](https://img.shields.io/github/stars/issam-seghir/astralyn?style=flat-square)
-![deploy](https://img.shields.io/website?down_color=red&down_message=down&style=flat-square&up_color=succes&up_message=up&url=https%3A%2F%2Fissam-seghir.github.io%2Fastralyn%2F)
+![frk](https://img.shields.io/github/forks/issam-seghir/spectrum-store?style=flat-square)
+![str](https://img.shields.io/github/stars/issam-seghir/spectrum-store?style=flat-square)
+![deploy](https://img.shields.io/website?down_color=red&down_message=down&style=flat-square&up_color=succes&up_message=up&url=https%3A%2F%2Fissam-seghir.github.io%2Fspectrum-store%2F)
 
+  <p align="center">
 
+  "**Spectrum Store  | Your Comprehensive Dashboard Experience**"
+
+**Astralyn** isn't just a **dashboard**, it's a universe of possibilities within reach—an immersive, feature-rich platform, From managing your **e-commerce business** with **data grid** tables and visualization-rich **charts** to accessing full-fledged **applications** like **kanban** **boards**, **schedulers** for appointments, and an **interactive** **map**, **Astralyn** offers a comprehensive toolkit.
+    <br />
+    <br />
+    <a href="https://issam-seghir.github.io/spectrum-store/">View Demo</a>
+    .
+    <a href="https://github.com/issam-seghir/spectrum-store/issues">Report Bug</a>
+    .
+    <a href="https://github.com/issam-seghir/spectrum-store/pulls">Request Feature</a>
+  </p>
+
+<br>
+<hr>
+
+</div>
+
+<br>
+
+![Alt text](Mockup.png)
 
 ## Getting Started
 
