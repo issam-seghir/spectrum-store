@@ -16,9 +16,10 @@
 
   <p align="center">
 
-  "**Spectrum Store  | Your Comprehensive Dashboard Experience**"
+  **Spectrum Store  | A Next.js & TypeScript , Shadcn, powered e-commerce platform**
 
-**Astralyn** isn't just a **dashboard**, it's a universe of possibilities within reach—an immersive, feature-rich platform, From managing your **e-commerce business** with **data grid** tables and visualization-rich **charts** to accessing full-fledged **applications** like **kanban** **boards**, **schedulers** for appointments, and an **interactive** **map**, **Astralyn** offers a comprehensive toolkit.
+  **That leverages the [Fake Store API](https://fakestoreapi.com), It features an Admin dashboard and JWT auth.**
+  following best secure technique in mind routes and server actions
     <br />
     <br />
     <a href="https://issam-seghir.github.io/spectrum-store/">View Demo</a>
@@ -36,6 +37,17 @@
 <br>
 
 ![Alt text](Mockup.png)
+
+### Built With
+
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+![Next JS](<https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white>
+- ![JOY](https://img.shields.io/badge/JOYUI-%230081CB.svg?style=for-the-badge&logo=mui&logoColor=white)
+- ![Syncfusion](https://custom-icon-badges.demolab.com/badge/syncfusion-113451?style=for-the-badge&logo=syncfusion&&logoColor=113451&)
+- ![million](https://custom-icon-badges.demolab.com/badge/million-%23AF73D8.svg?style=for-the-badge&logo=million&logoColor=white)
+- ![Leaflet](https://custom-icon-badges.demolab.com/badge/leaflet-41B883?style=for-the-badge&logo=leaflet&&logoColor=256b4c&)
+- ![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
+
 
 ## Getting Started
 
