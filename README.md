@@ -19,6 +19,7 @@
   **Spectrum Store | A Robust E-commerce Platform Powered by Next.js, TypeScript, and Shadcn**
 
   **That leverages the [Fake Store API](https://fakestoreapi.com), It features an Admin dashboard and JWT auth.**
+
  Designed with a focus on security, it implements best practices for routing and server actions.
     <br />
     <br />
@@ -44,14 +45,56 @@
 - ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
 - ![Tailwind](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 - ![Shadcn](https://img.shields.io/badge/shadcn%2Fui-000000?style=for-the-badge&logo=shadcnui&logoColor=white)
+- ![React Hook Form](https://img.shields.io/badge/React%20Hook%20Form-%23EC5990.svg?style=for-the-badge&logo=reacthookform&logoColor=white)
+- ![Rechart](https://img.shields.io/badge/rechart-F5788D.svg?style=for-the-badge&logo=rechart&logoColor=white)
 - ![Zod](https://img.shields.io/badge/zod-%233068b7.svg?style=for-the-badge&logo=zod&logoColor=white)
-- ![Leaflet](https://custom-icon-badges.demolab.com/badge/leaflet-41B883?style=for-the-badge&logo=leaflet&&logoColor=256b4c&)
-- ![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
+- ![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
+
+## Features
+
+### Technique
+
+- **Next js 14** Last features
+- **Next js** **Server Actions** + **Axios** + **Zod**
+- **React hook form** + **Validation** with **zod** for both **Client** & **Server**
+- **Authentication** JWT + Cookies  + **Authorization** DATA Layer + **Middleware**
+
+### Main
+
+- 🔒 **Login** Page With **JWT** Authentication + **Logout**
+- 🌍 **Home** **Page** with Grid Layout
+- 👜 **Product Page** Showing all Product with **category** **filter**
+- 👓 **Product Details** page with **ratting** , **pricing**  & **add cart** button
+- 🛒 **Cart Drawer** (add to cart , remove from cart)
+- 🔍 **Global** **Search** Functionality
+- 🎨 **Theme Toggler** (Light /Dark mode)
+- ✨ **Loading** **animations** & **Skeleton**
+
+- 📊 **Admin Dashboard** with CRUD operatons for prouct , pagination , searching charts
+- 🛡 **Security in mind** : **Authentication** (JWT + Cookies)  & **Authorization** DATA Layer + **Middleware** & **Server actions** with **validation**
+- 🚀 **Optimized SEO and Performance**: The project is optimized for SEO and performance using the latest Next.js features and best practices for **meta** tags and **Next/Image** && **site maps**.
+- 🎊 **Responsive Design**
+
+
 
 
 ## Getting Started
 
 First, run the development server:
+
+1. Clone or Fork the repo
+
+   ```sh
+   git clone https://github.com/issam-seghir/spectrum-store.git
+   ```
+
+2. Install Dependencies
+
+   ```sh
+   npm install
+   yearn add
+   pnpm install
+   ```
 
 ```bash
 npm run dev
