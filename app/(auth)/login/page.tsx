@@ -76,7 +76,7 @@ export default function LogInPage() {
                                     type="submit"
                                     disabled={pending}
                                 >
-                                    Sign In with Email{" "}
+                                    Sign In
                                 </Button>
                             </div>
                         </form>
