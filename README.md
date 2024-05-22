@@ -1,4 +1,20 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<div align="center">
+
+
+<img src="/app/icon.ico" alt="Alt text" width="250" height="250">
+
+<h1 align="center" >Spectrum Store</h1>
+
+![cntr](https://img.shields.io/github/contributors/issam-seghir/astralyn?color=pink&style=for-the-badge)
+![pullreQ](https://img.shields.io/github/issues-pr/issam-seghir/astralyn?color=orange&style=for-the-badge)
+![comt](https://img.shields.io/github/last-commit/issam-seghir/astralyn?style=for-the-badge)
+[![GPL3 License](https://img.shields.io/badge/License-GPL3-green.svg?style=for-the-badge)](https://choosealicense.com/licenses/gpl-3.0/)
+
+![frk](https://img.shields.io/github/forks/issam-seghir/astralyn?style=flat-square)
+![str](https://img.shields.io/github/stars/issam-seghir/astralyn?style=flat-square)
+![deploy](https://img.shields.io/website?down_color=red&down_message=down&style=flat-square&up_color=succes&up_message=up&url=https%3A%2F%2Fissam-seghir.github.io%2Fastralyn%2F)
+
+
 
 ## Getting Started
 
