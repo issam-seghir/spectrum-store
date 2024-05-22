@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { getProductById } from "@/lib/services";
+import { getProduct } from "@/lib/services";
 import { Product } from "@/lib/types";
 import { ArrowLeft, Minus, Plus, ShoppingCart, Star, StarHalf } from "lucide-react";
 import { ResolvingMetadata } from "next";
@@ -19,7 +19,7 @@ export async function generateMetadata(
     { params: { id } }: Props,
     parent: ResolvingMetadata,
 ) {
-    const product = await getProductById(id);
+    const product = await getProduct(id);
     const previousImages = (await parent).openGraph?.images || [];
 
     return {
@@ -32,7 +32,7 @@ export async function generateMetadata(
 }
 
 export default async function ProductDetail({ params: { id } }: Props) {
-    const product: Product | null = await getProductById(id);
+    const product: Product | null = await getProduct(id);
 
     if (!product) {
 notFound()

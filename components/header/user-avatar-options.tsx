@@ -1,10 +1,7 @@
-"use client";
 import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
-import { logout } from "@/lib/actions";
 import Link from "next/link";
-
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -13,18 +10,29 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { getCurrentUser } from "@/lib/services";
+import {User} from "@/lib/types";
+import { LogoutButton } from "./logout-button";
+import { capitalizeFirstCharOfEveryWord } from "../../lib/utils";
 
-export default function UserAvatarOptions() {
+export default async function UserAvatarOptions() {
+    const user: User | null = await getCurrentUser();
+console.log(user);
+
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
                 <Button
                     variant="outline"
                     size="icon"
-                    className="overflow-hidden rounded-full"
+                    className="overflow-hidden rounded-full border-yellow-400"
                 >
                     <Image
-                        src="https://i.imgur.com/LFpAx5i.png"
+                        src={
+                            user?.isAdmin
+                                ? "/admin-avatar.png"
+                                : "https://i.imgur.com/LFpAx5i.png"
+                        }
                         width={36}
                         height={36}
                         alt="Avatar"
@@ -33,20 +41,21 @@ export default function UserAvatarOptions() {
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                <DropdownMenuLabel>
+                    {capitalizeFirstCharOfEveryWord(
+                        user?.name?.firstname + " " + user?.name?.lastname,
+                    )}
+                </DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem className="cursor-pointer">
-                    <Link href={"/admin"} passHref>
-                        Dashboard
-                    </Link>
-                </DropdownMenuItem>
+                {user?.isAdmin && (
+                    <DropdownMenuItem className="cursor-pointer">
+                        <Link href={"/admin"} passHref>
+                            Dashboard
+                        </Link>
+                    </DropdownMenuItem>
+                )}
                 <DropdownMenuSeparator />
-                <DropdownMenuItem
-                    className="cursor-pointer"
-                    onClick={() => logout()}
-                >
-                    Logout
-                </DropdownMenuItem>
+                <LogoutButton />
             </DropdownMenuContent>
         </DropdownMenu>
     );

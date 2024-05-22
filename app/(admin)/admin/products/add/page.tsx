@@ -1,6 +1,4 @@
 import { ProductForm } from "@/components/admin/product-form";
-import { Product } from "@/lib/types";
-import { getProductById } from "@/lib/services";
 
 const ProductPage = async () => {
 
