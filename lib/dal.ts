@@ -10,8 +10,10 @@ const ADMIN_ROLE : number = 2;
 
 export const verifySession = cache(async () => {
     const token = cookies().get("token")?.value;
-    const decoded = jwt.decode(token);
-
+    let decoded: any = null;
+    if (token) {
+        decoded = jwt.decode(token);
+    }
     // Redirect to login page if the user is not authenticated
     if (!decoded?.user) {
         redirect("/login");
