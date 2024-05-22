@@ -29,7 +29,7 @@ export const ProductsClient: React.FC<ProductsClientProps> = ({ data }) => {
                         Manage products for your store
                     </p>
                 </div>
-                <Button onClick={() => router.push(`/products/add`)}>
+                <Button onClick={() => router.push(`products/add`)}>
                     <Plus className="mr-2 h-4 w-4" /> Add New
                 </Button>
             </div>

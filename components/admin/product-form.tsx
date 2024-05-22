@@ -88,6 +88,131 @@ export const ProductForm: React.FC<ProductFormProps> = ({ product }) => {
         defaultValues,
     });
 
+    const clientAction = async (formData: FormData) => {
+        try {
+            // trigger client side validation
+            form.trigger();
+            if (!form.formState.isValid) {
+                return;
+            }
+            setLoading(true);
+            if (product) {
+                const {
+                    errors,
+                    message = "",
+                    data,
+                } = await updateProduct(product.id.toString(), formData);
+                toast.custom(
+                    (t) => (
+                        <div
+                            className={`${
+                                t.visible ? "animate-enter" : "animate-leave"
+                            } pointer-events-auto flex w-full max-w-md rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5`}
+                        >
+                            <div className="w-full flex-1 p-4">
+                                <div className="flex items-start">
+                                    <div className="flex-shrink-0 pt-0.5">
+                                        <Image
+                                            className="h-20 w-20 rounded-md"
+                                            width={80}
+                                            height={80}
+                                            src={data.image}
+                                            alt={data.title}
+                                        />
+                                    </div>
+                                    <div className="ml-3 flex-1">
+                                        <p className="text-sm font-medium text-gray-900">
+                                            Product {data.id} -
+                                            {data.title.slice(0, 10)}
+                                        </p>
+                                        <p className="mt-1 text-sm text-gray-500">
+                                            Category:
+                                            {data.category}
+                                        </p>
+                                        <div className="font-bold text-green-500">
+                                            Updated 🚀
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ),
+                    {
+                        style: {
+                            minWidth: "250px",
+                        },
+                        duration: 3000,
+                    },
+                );
+            } else {
+                form.trigger();
+                if (!form.formState.isValid) {
+                    return;
+                }
+                setLoading(true);
+                const {
+                    errors,
+                    message = "",
+                    data,
+                } = await createProduct(formData);
+                console.log(data);
+
+                toast.custom(
+                    (t) => (
+                        <div
+                            className={`${
+                                t.visible ? "animate-enter" : "animate-leave"
+                            } pointer-events-auto flex w-full max-w-md rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5`}
+                        >
+                            <div className="w-full flex-1 p-4">
+                                <div className="flex items-start">
+                                    <div className="flex-shrink-0 pt-0.5">
+                                        <Image
+                                            className="h-20 w-20 rounded-md"
+                                            width={80}
+                                            height={80}
+                                            src={data.image}
+                                            alt={data.title}
+                                            onError={(e) => {
+                                                e..onerror = null; // Prevents infinite looping if the fallback image also fails
+                                                e.target.src =
+                                                    "path/to/your/placeholder/image.jpg";
+                                            }}
+                                        />
+                                    </div>
+                                    <div className="ml-3 flex-1">
+                                        <p className="text-sm font-medium text-gray-900">
+                                            Product {data.id} -
+                                            {data.title.slice(0, 10)}
+                                        </p>
+                                        <p className="mt-1 text-sm text-gray-500">
+                                            Category:
+                                            {data.category}
+                                        </p>
+                                        <div className="font-bold text-green-500">
+                                            Created 🚀
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ),
+                    {
+                        style: {
+                            minWidth: "250px",
+                        },
+                        duration: 3000,
+                    },
+                );
+                router.refresh();
+                router.push("../products");
+            }
+        } catch (error: any) {
+            toast.error("Something went wrong.", error.message);
+        } finally {
+            setLoading(false);
+        }
+    };
     const onDelete = async () => {
         try {
             setLoading(true);
@@ -169,132 +294,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ product }) => {
             </div>
             <Separator />
             <Form {...form}>
-                <form
-                    // onSubmit={form.handleSubmit(onSubmit)}
-                    action={async (formData) => {
-                        try {
-                            setLoading(true);
-                            if (product) {
-                                const {
-                                    errors,
-                                    message = "",
-                                    data,
-                                } = await updateProduct(
-                                    product.id.toString(),
-                                    formData,
-                                );
-                                toast.custom(
-                                    (t) => (
-                                        <div
-                                            className={`${
-                                                t.visible
-                                                    ? "animate-enter"
-                                                    : "animate-leave"
-                                            } pointer-events-auto flex w-full max-w-md rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5`}
-                                        >
-                                            <div className="w-full flex-1 p-4">
-                                                <div className="flex items-start">
-                                                    <div className="flex-shrink-0 pt-0.5">
-                                                        <Image
-                                                            className="h-20 w-20 rounded-md"
-                                                            width={80}
-                                                            height={80}
-                                                            src={data.image}
-                                                            alt={data.title}
-                                                        />
-                                                    </div>
-                                                    <div className="ml-3 flex-1">
-                                                        <p className="text-sm font-medium text-gray-900">
-                                                            Product {data.id} -
-                                                            {data.title.slice(
-                                                                0,
-                                                                10,
-                                                            )}
-                                                        </p>
-                                                        <p className="mt-1 text-sm text-gray-500">
-                                                            Category:
-                                                            {data.category}
-                                                        </p>
-                                                        <div className="font-bold text-green-500">
-                                                            Updated 🚀
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    ),
-                                    {
-                                        style: {
-                                            minWidth: "250px",
-                                        },
-                                        duration: 3000,
-                                    },
-                                );
-                            } else {
-                                setLoading(true);
-                                const {
-                                    errors,
-                                    message = "",
-                                    data,
-                                } = await createProduct(formData);
-                                toast.custom(
-                                    (t) => (
-                                        <div
-                                            className={`${
-                                                t.visible
-                                                    ? "animate-enter"
-                                                    : "animate-leave"
-                                            } pointer-events-auto flex w-full max-w-md rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5`}
-                                        >
-                                            <div className="w-full flex-1 p-4">
-                                                <div className="flex items-start">
-                                                    <div className="flex-shrink-0 pt-0.5">
-                                                        <Image
-                                                            className="h-20 w-20 rounded-md"
-                                                            width={80}
-                                                            height={80}
-                                                            src={data.image}
-                                                            alt={data.title}
-                                                        />
-                                                    </div>
-                                                    <div className="ml-3 flex-1">
-                                                        <p className="text-sm font-medium text-gray-900">
-                                                            Product {data.id} -
-                                                            {data.title.slice(
-                                                                0,
-                                                                10,
-                                                            )}
-                                                        </p>
-                                                        <p className="mt-1 text-sm text-gray-500">
-                                                            Category:
-                                                            {data.category}
-                                                        </p>
-                                                        <div className="font-bold text-green-500">
-                                                            Created 🚀
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    ),
-                                    {
-                                        style: {
-                                            minWidth: "250px",
-                                        },
-                                        duration: 3000,
-                                    },
-                                );
-                                router.refresh();
-                                router.push("../products");
-                            }
-                        } catch (error: any) {
-                            toast.error("Something went wrong.", error.message);
-                        } finally {
-                            setLoading(false);
-                        }
-                    }}
-                    className="w-full space-y-8"
-                >
+                <form action={clientAction} className="w-full space-y-8">
                     <div className="gap-8 md:grid md:grid-cols-3">
                         <FormField
                             control={form.control}
