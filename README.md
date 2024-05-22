@@ -1,7 +1,7 @@
 <div align="center">
 
 
-<img src="logo.png" alt="Alt text">
+<img src="logo.png" alt="Alt text" width="250" height="250">
 
 <h1 align="center" >Spectrum Store</h1>
 
