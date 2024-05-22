@@ -76,7 +76,12 @@
 - 🎊 **Responsive Design**
 
 
+## Note
 
+- you can use any **fakestoreapi** user to login
+- for **admin** **role** use only the default values
+  - **useranme** : mor_2314
+  - **password** : 83r5^_
 
 ## Getting Started
 
