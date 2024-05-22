@@ -11,7 +11,6 @@ export function MainNav({
 }: React.HTMLAttributes<HTMLElement>) {
     const pathname = usePathname();
     const params = useParams();
-console.log(pathname);
 
     const routes = [
         {
@@ -39,7 +38,7 @@ console.log(pathname);
     return (
         <nav
             className={cn(
-                "flex items-center space-x-4 lg:space-x-6",
+                "flex flex-col gap-8 sm:gap-0 items-center  sm:flex-row sm:space-x-4 lg:space-x-6",
                 className,
             )}
             {...props}
