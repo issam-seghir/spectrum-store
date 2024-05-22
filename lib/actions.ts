@@ -43,7 +43,7 @@ export async function login(formData: FormData) {
             sameSite: "lax",
             path: "/",
         });
-    } catch (error) {
+    } catch (error: any) {
         console.error(`Failed to login user:`, error?.response?.data);
         return {
             errors: {
@@ -121,7 +121,7 @@ export async function createProduct(formData: FormData) {
         revalidatePath("/admin/products");
         revalidatePath("/products");
         return { message: "Create Product successfully", data: res.data };
-    } catch (error) {
+    } catch (error : any) {
         console.error(`Failed to create product:`, error?.response?.data);
         return {
             errors: {
@@ -141,7 +141,7 @@ export async function createProduct(formData: FormData) {
  *
  * @param {string} id - The ID of the product to update.
  * @param {FormData} formData - The updated form data of the product.
- * @returns {Promise<Product>} A promise that resolves to the updated product.
+ * @returns {Promise<Product> } A promise that resolves to the updated product.
  */
 export async function updateProduct(id: string, formData: FormData) {
     // For enhanced security, the verifySession function can be used to authenticate the user.
@@ -178,7 +178,7 @@ export async function updateProduct(id: string, formData: FormData) {
         revalidatePath("/admin/products");
         revalidatePath("/products");
         return { message: "Update Product successfully", data: res.data };
-    } catch (error) {
+    } catch (error: any) {
         console.error(`Failed to update product:`, error?.response?.data);
         return {
             errors: {
@@ -215,7 +215,7 @@ export async function deleteProduct(id: string) {
         const res = await axios.delete(`${API_URL}/products/${id}`);
         console.log(res.data);
         return res.data;
-    } catch (error) {
+    } catch (error: any) {
         console.error(`Failed to delete product:`, error?.response?.data);
         return {
             message: error?.response?.data,

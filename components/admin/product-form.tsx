@@ -1,7 +1,7 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Trash } from "lucide-react";
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
@@ -60,7 +60,7 @@ const categories = Object.values(ProductCategory);
 
 export const ProductForm: React.FC<ProductFormProps> = ({ product }) => {
     const router = useRouter();
-    const {pending} = useFormStatus();
+    const { pending } = useFormStatus();
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
 
@@ -88,7 +88,6 @@ export const ProductForm: React.FC<ProductFormProps> = ({ product }) => {
         defaultValues,
     });
 
-
     const clientAction = async (formData: FormData) => {
         try {
             // trigger client side validation
@@ -99,116 +98,121 @@ export const ProductForm: React.FC<ProductFormProps> = ({ product }) => {
 
             setLoading(true);
             if (product) {
-                const {
-                    errors,
-                    message = "",
-                    data,
-                } = await updateProduct(product.id.toString(), formData);
-                toast.custom(
-                    (t) => (
-                        <div
-                            className={`${
-                                t.visible ? "animate-enter" : "animate-leave"
-                            } pointer-events-auto flex w-full max-w-md rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5`}
-                        >
-                            <div className="w-full flex-1 p-4">
-                                <div className="flex items-start">
-                                    <div className="flex-shrink-0 pt-0.5">
-                                        <Image
-                                            className="h-20 w-20 rounded-md"
-                                            width={80}
-                                            height={80}
-                                            src={data.image}
-                                            alt={data.title}
-                                        />
-                                    </div>
-                                    <div className="ml-3 flex-1">
-                                        <p className="text-sm font-medium text-gray-900">
-                                            Product {data.id} -
-                                            {data.title.slice(0, 10)}
-                                        </p>
-                                        <p className="mt-1 text-sm text-gray-500">
-                                            Category:
-                                            {data.category}
-                                        </p>
-                                        <div className="font-bold text-green-500">
-                                            Updated 🚀
+                const res = await updateProduct(
+                    product.id.toString(),
+                    formData,
+                );
+                if ("data" in res) {
+                    const { data } = res;
+                    toast.custom(
+                        (t) => (
+                            <div
+                                className={`${
+                                    t.visible
+                                        ? "animate-enter"
+                                        : "animate-leave"
+                                } pointer-events-auto flex w-full max-w-md rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5`}
+                            >
+                                <div className="w-full flex-1 p-4">
+                                    <div className="flex items-start">
+                                        <div className="flex-shrink-0 pt-0.5">
+                                            <Image
+                                                className="h-20 w-20 rounded-md"
+                                                width={80}
+                                                height={80}
+                                                src={data.image}
+                                                alt={data.title}
+                                            />
+                                        </div>
+                                        <div className="ml-3 flex-1">
+                                            <p className="text-sm font-medium text-gray-900">
+                                                Product {data.id} -
+                                                {data.title.slice(0, 10)}
+                                            </p>
+                                            <p className="mt-1 text-sm text-gray-500">
+                                                Category:
+                                                {data.category}
+                                            </p>
+                                            <div className="font-bold text-green-500">
+                                                Updated 🚀
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    ),
-                    {
-                        style: {
-                            minWidth: "250px",
+                        ),
+                        {
+                            style: {
+                                minWidth: "250px",
+                            },
+                            duration: 3000,
                         },
-                        duration: 3000,
-                    },
-                );
+                    );
+                }
             } else {
                 form.trigger();
                 if (!form.formState.isValid) {
                     return;
                 }
                 setLoading(true);
-                const {
-                    errors,
-                    message = "",
-                    data,
-                } = await createProduct(formData);
-                console.log(data);
-
-                toast.custom(
-                    (t) => (
-                        <div
-                            className={`${
-                                t.visible ? "animate-enter" : "animate-leave"
-                            } pointer-events-auto flex w-full max-w-md rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5`}
-                        >
-                            <div className="w-full flex-1 p-4">
-                                <div className="flex items-start">
-                                    <div className="flex-shrink-0 pt-0.5">
-                                        <Image
-                                            className="h-20 w-20 rounded-md"
-                                            width={80}
-                                            height={80}
-                                            loader={({ src }) => src}
-                                            src={data.image}
-                                            alt={data.title}
-                                            // fallback Image
-                                            onError={(event) => {
-                                                event.target.id =
-                                                    "https://i.imgur.com/zAC10no.png";
-                                                event.target.srcset =
-                                                    "https://i.imgur.com/zAC10no.png";
-                                            }}
-                                        />
-                                    </div>
-                                    <div className="ml-3 flex-1">
-                                        <p className="text-sm font-medium text-gray-900">
-                                            Product {data.id} -
-                                            {data.title.slice(0, 10)}
-                                        </p>
-                                        <p className="mt-1 text-sm text-gray-500">
-                                            Category:
-                                            {data.category}
-                                        </p>
-                                        <div className="font-bold text-green-500">
-                                            Created 🚀
+                const res = await createProduct(formData);
+                if ("data" in res) {
+                    const { data } = res;
+                    toast.custom(
+                        (t) => (
+                            <div
+                                className={`${
+                                    t.visible
+                                        ? "animate-enter"
+                                        : "animate-leave"
+                                } pointer-events-auto flex w-full max-w-md rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5`}
+                            >
+                                <div className="w-full flex-1 p-4">
+                                    <div className="flex items-start">
+                                        <div className="flex-shrink-0 pt-0.5">
+                                            <Image
+                                                className="h-20 w-20 rounded-md"
+                                                width={80}
+                                                height={80}
+                                                loader={({ src }) => src}
+                                                src={data.image}
+                                                alt={data.title}
+                                                // fallback Image
+                                                onError={(event) => {
+                                                    const target =
+                                                        event.target as HTMLImageElement;
+                                                    target.id =
+                                                        "https://i.imgur.com/zAC10no.png";
+                                                    target.srcset =
+                                                        "https://i.imgur.com/zAC10no.png";
+                                                }}
+                                            />
+                                        </div>
+                                        <div className="ml-3 flex-1">
+                                            <p className="text-sm font-medium text-gray-900">
+                                                Product {data.id} -
+                                                {data.title.slice(0, 10)}
+                                            </p>
+                                            <p className="mt-1 text-sm text-gray-500">
+                                                Category:
+                                                {data.category}
+                                            </p>
+                                            <div className="font-bold text-green-500">
+                                                Created 🚀
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    ),
-                    {
-                        style: {
-                            minWidth: "250px",
+                        ),
+                        {
+                            style: {
+                                minWidth: "250px",
+                            },
+                            duration: 3000,
                         },
-                        duration: 3000,
-                    },
-                );
+                    );
+                }
                 router.refresh();
                 router.push("../products");
             }
@@ -219,6 +223,10 @@ export const ProductForm: React.FC<ProductFormProps> = ({ product }) => {
         }
     };
     const onDelete = async () => {
+        if (!product) {
+            toast.error("Product not found.");
+            return;
+        }
         try {
             setLoading(true);
             toast.promise(
@@ -446,7 +454,6 @@ export const ProductForm: React.FC<ProductFormProps> = ({ product }) => {
                         className="ml-auto"
                         type="submit"
                     >
-
                         {action}
                     </Button>
                 </form>
