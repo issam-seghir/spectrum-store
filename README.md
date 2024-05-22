@@ -12,7 +12,7 @@
 
 ![frk](https://img.shields.io/github/forks/issam-seghir/spectrum-store?style=flat-square)
 ![str](https://img.shields.io/github/stars/issam-seghir/spectrum-store?style=flat-square)
-![deploy](https://img.shields.io/website?down_color=red&down_message=down&style=flat-square&up_color=succes&up_message=up&url=https%3A%2F%2Fissam-seghir.github.io%2Fspectrum-store%2F)
+![deploy](https://img.shields.io/website?down_color=red&down_message=down&style=flat-square&up_color=succes&up_message=up&url=https%3A%2F%2Fspectrum-store.vercel.app)
 
   <p align="center">
 
@@ -23,7 +23,7 @@
  Designed with a focus on security, it implements best practices for routing and server actions.
     <br />
     <br />
-    <a href="https://issam-seghir.github.io/spectrum-store/">View Demo</a>
+    <a href="https://spectrum-store.vercel.app">View Demo</a>
     .
     <a href="https://github.com/issam-seghir/spectrum-store/issues">Report Bug</a>
     .
