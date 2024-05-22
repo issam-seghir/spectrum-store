@@ -16,8 +16,8 @@ export default function LogInPage() {
             await login(formData);
         } catch (error) {
             console.log(error);
-            
-             toast.error("Something went wrong.", error.message);
+
+             toast.error("Something went wrong.", error?.message);
         }
     };
     return (
