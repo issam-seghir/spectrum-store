@@ -171,13 +171,9 @@ export const ProductForm: React.FC<ProductFormProps> = ({ product }) => {
                                             className="h-20 w-20 rounded-md"
                                             width={80}
                                             height={80}
+                                            
                                             src={data.image}
                                             alt={data.title}
-                                            onError={(e) => {
-                                                e..onerror = null; // Prevents infinite looping if the fallback image also fails
-                                                e.target.src =
-                                                    "path/to/your/placeholder/image.jpg";
-                                            }}
                                         />
                                     </div>
                                     <div className="ml-3 flex-1">
