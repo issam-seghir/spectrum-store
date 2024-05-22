@@ -3,15 +3,23 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useToast } from "@/components/ui/use-toast";
 import { login } from "@/lib/actions";
 import Image from "next/image";
 import Link from "next/link";
-import { useFormStatus } from 'react-dom';
-export default function LogInPage() {
-  const { toast } = useToast();
-   const { pending } = useFormStatus()
+import { useFormStatus } from "react-dom";
+import { toast } from "react-hot-toast";
 
+export default function LogInPage() {
+    const { pending } = useFormStatus();
+    const handleLogin = async (formData: FormData) => {
+        try {
+            await login(formData);
+        } catch (error) {
+            console.log(error);
+            
+             toast.error("Something went wrong.", error.message);
+        }
+    };
     return (
         <div className="container relative h-[100dvh] flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
             <div className="relative hidden h-full w-full flex-col bg-muted dark:border-r lg:flex">
@@ -35,7 +43,7 @@ export default function LogInPage() {
                         </p>
                     </div>
                     <div className="grid gap-6">
-                        <form action={login}>
+                        <form action={handleLogin}>
                             <div className="grid gap-2">
                                 <div className="grid gap-1">
                                     <Label className="py-2" htmlFor="username">

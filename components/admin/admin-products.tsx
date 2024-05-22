@@ -20,7 +20,7 @@ export const ProductsClient: React.FC<ProductsClientProps> = ({ data }) => {
 
     return (
         <>
-            <div className="flex items-center justify-between">
+            <div className="flex items-center flex-wrap gap-4 justify-between">
                 <div>
                     <h2 className="text-3xl font-bold tracking-tight">
                         Total Products : {data.length}
@@ -29,7 +29,7 @@ export const ProductsClient: React.FC<ProductsClientProps> = ({ data }) => {
                         Manage products for your store
                     </p>
                 </div>
-                <Button onClick={() => router.push(`products/add`)}>
+                <Button size={"sm"} onClick={() => router.push(`products/add`)}>
                     <Plus className="mr-2 h-4 w-4" /> Add New
                 </Button>
             </div>

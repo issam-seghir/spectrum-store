@@ -5,11 +5,20 @@ import { ColumnDef } from "@tanstack/react-table";
 import { CellAction } from "./cell-action";
 import { Product } from "@/lib/types";
 import Image from "next/image";
+import {
+    ArrowLeft,
+    Minus,
+    Plus,
+    ShoppingCart,
+    Star,
+    StarHalf,
+} from "lucide-react";
 
 export const columns: ColumnDef<Product>[] = [
     {
         accessorKey: "title",
         header: "Name",
+        size: 250,
     },
     {
         accessorKey: "price",
@@ -21,25 +30,37 @@ export const columns: ColumnDef<Product>[] = [
                 </span>
             </div>
         ),
+        size: 200,
     },
     {
         accessorKey: "rating",
         header: "Rating",
         cell: ({ row }) => (
-            <div className="flex items-center gap-x-2">
-                <span className="text-lg font-semibold">
-                    {row.original.rating.rate}
-                </span>
+            <div className="flex">
+                {[...Array(Math.floor(row.original.rating.rate))].map(
+                    (_, i) => (
+                        <span key={i}>
+                            <Star className="fill-[#DAC0A3] stroke-none dark:fill-white " />
+                        </span>
+                    ),
+                )}
+                {row.original.rating.rate % 1 !== 0 && (
+                    <StarHalf className="border-none fill-[#DAC0A3] stroke-none dark:fill-white" />
+                )}
             </div>
         ),
+        size: 200,
     },
     {
         accessorKey: "description",
+        cell: (info) => info.getValue(),
         header: "Description",
+        size: 600,
     },
     {
         accessorKey: "category",
         header: "Category",
+        size: 200,
     },
     {
         accessorKey: "image",

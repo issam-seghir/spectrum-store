@@ -33,6 +33,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Product, ProductCategory } from "@/lib/types";
 import Image from "next/image";
+import { useFormStatus } from "react-dom";
 
 const formSchema = z.object({
     title: z.string().min(1),
@@ -58,15 +59,13 @@ interface ProductFormProps {
 const categories = Object.values(ProductCategory);
 
 export const ProductForm: React.FC<ProductFormProps> = ({ product }) => {
-    const params = useParams();
     const router = useRouter();
-
+    const {pending} = useFormStatus();
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
 
     const title = product ? "Edit product" : "Create product";
     const description = product ? "Edit a product." : "Add a new product";
-    const toastMessage = product ? "Product updated." : "Product created.";
     const action = product ? "Save changes" : "Create";
 
     const defaultValues = product
@@ -84,9 +83,11 @@ export const ProductForm: React.FC<ProductFormProps> = ({ product }) => {
           };
 
     const form = useForm<ProductFormValues>({
+        mode: "onChange",
         resolver: zodResolver(formSchema),
         defaultValues,
     });
+
 
     const clientAction = async (formData: FormData) => {
         try {
@@ -95,6 +96,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ product }) => {
             if (!form.formState.isValid) {
                 return;
             }
+
             setLoading(true);
             if (product) {
                 const {
@@ -436,6 +438,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ product }) => {
                     </div>
                     <Button
                         disabled={
+                            pending ||
                             loading ||
                             form.formState.isLoading ||
                             form.formState.isSubmitting
@@ -443,6 +446,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ product }) => {
                         className="ml-auto"
                         type="submit"
                     >
+
                         {action}
                     </Button>
                 </form>
