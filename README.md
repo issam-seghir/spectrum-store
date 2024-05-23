@@ -37,7 +37,9 @@
 
 <br>
 
-![Alt text](Mockup.png)
+
+![alt text](mockup-desktop.png)
+![alt text](mockup-mobile.png)
 
 ### Built With
 
