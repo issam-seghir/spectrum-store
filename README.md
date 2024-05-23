@@ -1,7 +1,7 @@
 <div align="center">
 
 
-<img src="logo.png" alt="Alt text" width="250" height="250">
+<img src="logo.png" alt="Alt text" width="300" height="250">
 
 <h1 align="center" >Spectrum Store</h1>
 
@@ -36,7 +36,6 @@
 </div>
 
 <br>
-
 
 ![alt text](mockup-desktop.png)
 ![alt text](mockup-mobile.png)
