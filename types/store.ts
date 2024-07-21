@@ -7,8 +7,8 @@ export interface CartSlice {
     total: number;
     addProduct: (product: Product) => void;
     removeProduct: (productId: number) => void;
-    incQty: (productId: number) => void;
-    decQty: (productId: number) => void;
+    incQty: (productId: number, product?: Product) => void;
+    decQty: (productId: number, product?: Product) => void;
     getProductById: (productId: number) => CartProduct | undefined;
     setTotal: (total: number) => void;
     reset: () => void;

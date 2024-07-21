@@ -1,12 +1,26 @@
+"use client"
+
 import { Button } from "@/components/ui/button";
 import { Product } from "@/types/product";
 import { Minus, Plus } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useStore } from "@/store/store";
+import { useMounted } from "@/hooks/use-mounted";
+import { useShallow } from "zustand/react/shallow";
 
 export default function ProductCard({ product }: { product: Product }) {
+
+    const incQty = useStore.use.incQty();
+    const decQty = useStore.use.decQty();
+    const products = useStore((state) => state.products);
+    const productQnt = products.find((p) => p.id === product.id)?.quantity;
+
+    const isMount = useMounted();
+    if (!isMount) return null;
+
     return (
-        <article className="animate-fadeIn bg-background-secondary group flex  h-full max-h-full w-full flex-col space-y-2 rounded-md border-2 p-4  shadow-sm transition-opacity dark:border-0">
+        <article className="group flex h-full max-h-full  w-full animate-fadeIn flex-col space-y-2 rounded-md border-2 bg-background-secondary p-4  shadow-sm transition-opacity dark:border-0">
             <Link
                 href={`/products/${product.id}`}
                 passHref
@@ -52,14 +66,16 @@ export default function ProductCard({ product }: { product: Product }) {
                             variant="outline"
                             className="h-5 w-5 rounded-full bg-[#DAC0A3] p-0 dark:bg-background "
                             size={"sm"}
+                            onClick={() => decQty(product.id, product)}
                         >
                             <Minus className="h-4 w-4" />
                         </Button>
-                        <span>0</span>
+                        <span>{productQnt || 0}</span>
                         <Button
                             variant="outline"
-                            className="h-5 w-5 rounded-full p-0 bg-[#DAC0A3] p-0 dark:bg-background"
+                            className="h-5 w-5 rounded-full bg-[#DAC0A3] p-0 p-0 dark:bg-background"
                             size={"sm"}
+                            onClick={() => incQty(product.id, product)}
                         >
                             <Plus className="h-4 w-4" />
                         </Button>

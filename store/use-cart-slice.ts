@@ -3,16 +3,23 @@ import { CartSlice, SliceCreator } from "@/types/store";
 export const createCartSlice: SliceCreator<CartSlice> = (set, get) => ({
     products: [],
     total: 0,
-    incQty: (productId) =>
+    incQty: (productId, product) =>
         set((state) => {
-            const foundProduct = state.products.find(
-                (product) => product.id === productId,
+            const foundIndex = state.products.findIndex(
+                (p) => p.id === productId,
             );
-            if (foundProduct) {
-                foundProduct.quantity += 1;
+            if (foundIndex !== -1) {
+                // Product exists, increment quantity
+                state.products[foundIndex].quantity += 1;
+            } else if (product) {
+                // Product doesn't exist, add new product
+                // Assuming addProduct correctly modifies the state to add the product
+                // This might involve creating a new array for immutability or directly pushing to the products array
+                const newProduct = { ...product, quantity: 1 }; // Ensure the product has a quantity property
+                state.products.push(newProduct);
             }
         }),
-    decQty: (productId) =>
+    decQty: (productId, product) =>
         set((state) => {
             const foundIndex = state.products.findIndex(
                 (product) => product.id === productId,
@@ -24,6 +31,8 @@ export const createCartSlice: SliceCreator<CartSlice> = (set, get) => ({
                 } else {
                     state.products[foundIndex].quantity -= 1;
                 }
+            } else {
+                product && state.addProduct(product);
             }
         }),
     addProduct: (product) =>
