@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
+import toast from "react-hot-toast";
 
 import { cn } from "@/lib/utils";
 
@@ -27,18 +28,22 @@ export function MainNav({
             href: ``,
             label: "Orders",
             active: pathname === `/admin/orders`,
+            onClick: () =>
+                toast("🛠 Orders page is currently under development."),
         },
         {
             href: ``,
             label: "Settings",
             active: pathname === `/admin/settings`,
+            onClick: () =>
+                toast("🛠 Settings page is currently under development."),
         },
     ];
 
     return (
         <nav
             className={cn(
-                "flex flex-col gap-8 sm:gap-0 items-center  sm:flex-row sm:space-x-4 lg:space-x-6",
+                "flex flex-col items-center gap-8 sm:flex-row  sm:gap-0 sm:space-x-4 lg:space-x-6",
                 className,
             )}
             {...props}
@@ -53,6 +58,7 @@ export function MainNav({
                             ? "text-black dark:text-white"
                             : "text-muted-foreground",
                     )}
+                    onClick={route.onClick}
                 >
                     {route.label}
                 </Link>

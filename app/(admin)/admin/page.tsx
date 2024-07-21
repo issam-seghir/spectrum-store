@@ -63,7 +63,7 @@ const graphRevenue = generateRandomData();
                             <Package className="h-4 w-4 text-muted-foreground" />
                         </CardHeader>
                         <CardContent>
-                            <div className="text-2xl font-bold">25</div>
+                            <div className="text-2xl font-bold">20</div>
                         </CardContent>
                     </Card>
                 </div>
