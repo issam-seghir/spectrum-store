@@ -1,3 +1,4 @@
+import ProductActions from "@/components/products/product-actions";
 import { Button } from "@/components/ui/button";
 import { getProduct } from "@/lib/services";
 import { Product } from "@/types/product";
@@ -59,7 +60,7 @@ notFound()
                     />
                     <div className="flex h-full max-w-xl flex-auto flex-col gap-10  sm:justify-center ">
                         <div className="flex flex-col gap-2">
-                            <span className="dark:bg-background-secondary w-fit rounded-md bg-[#DAC0A3] p-2 text-sm font-medium capitalize">
+                            <span className="w-fit rounded-md bg-[#DAC0A3] p-2 text-sm font-medium capitalize dark:bg-background-secondary">
                                 {product.category}
                             </span>
 
@@ -88,33 +89,7 @@ notFound()
                         </div>
 
                         <p className="text-2xl font-bold">${product.price}</p>
-                        <div className="flex items-center justify-center gap-4 ">
-                            <Button
-                                variant="default"
-                                size="lg-res"
-                                className="px-4  min-[460px]:px-8"
-                            >
-                                <Minus className="h-4 w-4" />
-                            </Button>
-                            <span>
-                                <Button
-                                    variant="default"
-                                    size="lg-res"
-                                    className="sm:max-w-fit"
-                                >
-                                    <ShoppingCart className="mr-4" />
-                                    Add to cart
-                                </Button>
-                            </span>
-
-                            <Button
-                                variant="default"
-                                size="lg-res"
-                                className="px-4  min-[460px]:px-8"
-                            >
-                                <Plus className="h-4 w-4" />
-                            </Button>
-                        </div>
+                        <ProductActions product={product} />
                     </div>
                 </div>
             </div>
