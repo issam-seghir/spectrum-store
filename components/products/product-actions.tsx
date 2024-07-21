@@ -52,9 +52,14 @@ export default function ProductActions({ product }: { product: Product }) {
           <Button
               variant="default"
               size="lg-res"
-              className="px-4  min-[460px]:px-8"
+              className="px-4 relative  min-[460px]:px-8"
               onClick={() => incQty(product.id, product)}
           >
+              {productQnt && (
+                  <span className="absolute right-0 top-0 -mr-1 -mt-2 flex h-5 w-5 items-center justify-center rounded-full  bg-red-500 text-xs text-white">
+                      {productQnt}
+                  </span>
+              )}
               <Plus className="h-4 w-4" />
           </Button>
       </div>
