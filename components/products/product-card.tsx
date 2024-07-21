@@ -67,6 +67,7 @@ export default function ProductCard({ product }: { product: Product }) {
                             className="h-5 w-5 rounded-full bg-[#DAC0A3] p-0 dark:bg-background "
                             size={"sm"}
                             onClick={() => decQty(product.id, product)}
+                            disabled={!productQnt}
                         >
                             <Minus className="h-4 w-4" />
                         </Button>

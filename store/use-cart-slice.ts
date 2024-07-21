@@ -13,9 +13,7 @@ export const createCartSlice: SliceCreator<CartSlice> = (set, get) => ({
                 state.products[foundIndex].quantity += 1;
             } else if (product) {
                 // Product doesn't exist, add new product
-                // Assuming addProduct correctly modifies the state to add the product
-                // This might involve creating a new array for immutability or directly pushing to the products array
-                const newProduct = { ...product, quantity: 1 }; // Ensure the product has a quantity property
+                const newProduct = { ...product, quantity: 1 }; 
                 state.products.push(newProduct);
             }
         }),
