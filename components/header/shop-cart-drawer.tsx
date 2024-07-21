@@ -18,8 +18,13 @@ import Link from "next/link";
 export function ShopCartDrawer() {
     const products = useStore().products;
     const removeProduct = useStore().removeProduct;
-        const incQty = useStore.use.incQty();
-        const decQty = useStore.use.decQty();
+    const incQty = useStore.use.incQty();
+    const decQty = useStore.use.decQty();
+    const calculateTotalPrice = () => {
+        return products.reduce((total, product) => {
+            return total + product.price * product.quantity;
+        }, 0);
+    };
 
     return (
         <Sheet>
@@ -50,22 +55,22 @@ export function ShopCartDrawer() {
                         {products.map((product) => (
                             <article
                                 key={product.id}
-                                className="group flex h-full max-h-full  w-full animate-fadeIn flex-col space-y-2 rounded-md border-2 bg-background-secondary p-4  shadow-sm transition-opacity dark:border-0"
+                                className="group flex h-full max-h-full  w-full animate-fadeIn flex-col space-y-2 rounded-md border-2 bg-background-secondary p-2  shadow-sm transition-opacity dark:border-0"
                             >
                                 <Link
                                     href={`/products/${product.id}`}
                                     passHref
-                                    className="flex max-h-48 flex-1 rounded bg-[#FEFAF6] py-4 dark:bg-white"
+                                    className="flex max-h-36 flex-1 rounded bg-[#FEFAF6] py-4 dark:bg-white"
                                 >
                                     <Image
                                         src={product.image}
                                         width={300}
                                         height={300}
                                         alt={product.title}
-                                        className="mx-auto  h-40 w-40 object-contain transition duration-300 ease-in-out group-hover:scale-105"
+                                        className="mx-auto  h-26 w-20 object-contain transition duration-300 ease-in-out group-hover:scale-105"
                                     />
                                 </Link>
-                                <div className="flex flex-1 flex-col justify-between gap-4">
+                                <div className="flex flex-1 flex-col justify-between gap-2">
                                     <Link
                                         href={`/products/${product.id}`}
                                         passHref
@@ -101,7 +106,7 @@ export function ShopCartDrawer() {
                                             <span>{product.quantity || 0}</span>
                                             <Button
                                                 variant="outline"
-                                                className="h-5 w-5 rounded-full bg-[#DAC0A3] p-0  dark:bg-background"
+                                                className="mr-4 h-5 w-5 rounded-full bg-[#DAC0A3] p-0  dark:bg-background"
                                                 size={"sm"}
                                                 onClick={() =>
                                                     incQty(product.id, product)
@@ -116,7 +121,7 @@ export function ShopCartDrawer() {
                                                 size="icon"
                                                 variant="destructive"
                                             >
-                                                <Trash2 />
+                                                <Trash2 size={"23"} />
                                             </Button>
                                         </div>
                                     </div>
@@ -126,9 +131,16 @@ export function ShopCartDrawer() {
                     </div>
                 </div>
 
-                <div className="mt-4 flex w-full justify-between">
-                    <h1 className="text-xl font-bold">Total</h1>
-                    <h2 className="text-lg font-bold">$0.00</h2>
+                <div className="mt-4 flex flex-col w-full gap-3 justify-center">
+                    <div className="flex justify-between">
+                        <h1 className="text-xl font-bold">Total</h1>
+                        <h2 className="text-lg font-bold">
+                            ${calculateTotalPrice().toFixed(2)}
+                        </h2>
+                    </div>
+                    <Button variant="default" size="lg">
+                        Checkout
+                    </Button>
                 </div>
             </SheetContent>
         </Sheet>
