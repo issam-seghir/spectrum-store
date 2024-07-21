@@ -37,7 +37,7 @@ export function ShopCartDrawer() {
             setIsLoading(false);
         }
         , 2000);
-        toast.success("Checkout successful");
+        toast.error("Unfortunately, we are unable to process your payment at the moment. Please try again later.");
     };
 
     return (
