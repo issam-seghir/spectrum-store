@@ -35,9 +35,9 @@ export function ShopCartDrawer() {
         console.log("Checkout successful");
         setTimeout(() => {
             setIsLoading(false);
+            toast.error("Unfortunately, we are unable to process your payment at the moment. Please try again later.");
         }
         , 2000);
-        toast.error("Unfortunately, we are unable to process your payment at the moment. Please try again later.");
     };
 
     return (
@@ -51,7 +51,11 @@ export function ShopCartDrawer() {
                     }),
                 )}
             >
-                <span className="absolute right-0 top-0 -mr-1 -mt-2 flex h-5 w-5 items-center justify-center rounded-full  bg-red-500 text-xs text-white"></span>
+                {products.length > 0 && (
+                    <span className="absolute right-0 top-0 -mr-1 -mt-2 flex h-5 w-5 items-center justify-center rounded-full  bg-red-500 text-xs text-white">
+                    {products.length}
+                </span>
+                )}
                 <ShoppingBag />
             </SheetTrigger>
             <SheetContent
