@@ -31,7 +31,7 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
-import { Product, ProductCategory } from "@/lib/types";
+import { Product, ProductCategory } from "@/types/product";
 import Image from "next/image";
 import { useFormStatus } from "react-dom";
 
@@ -87,6 +87,10 @@ export const ProductForm: React.FC<ProductFormProps> = ({ product }) => {
         resolver: zodResolver(formSchema),
         defaultValues,
     });
+console.log(pending);
+console.log(loading);
+console.log(form.formState.isLoading);
+console.log(form.formState.isSubmitting);
 
     const clientAction = async (formData: FormData) => {
         try {

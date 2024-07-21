@@ -8,7 +8,7 @@ import { DataTable } from "@/components/ui/data-table";
 import { Separator } from "@/components/ui/separator";
 
 import {  columns } from "./columns";
-import { Product } from "@/lib/types";
+import { Product } from "@/types/product";
 
 interface ProductsClientProps {
     data: Product[];

@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import { deleteProduct } from "@/lib/actions";
-import { Product } from "@/lib/types";
+import { Product } from "@/types/product";
 import Image from "next/image";
 interface CellActionProps {
     data: Product;

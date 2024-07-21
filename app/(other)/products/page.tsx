@@ -2,7 +2,7 @@
 import Categories from "@/components/products/categories";
 import ProductList from "@/components/products/product-list";
 import { Skeleton } from "@/components/ui/skeleton";
-import { ProductPageQueryParams } from "@/lib/types";
+import { ProductPageQueryParams } from "@/types/product";
 import clsx from "clsx";
 import { Metadata } from "next";
 import { Suspense } from "react";

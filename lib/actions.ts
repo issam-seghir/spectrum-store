@@ -1,6 +1,6 @@
 "use server";
 import { verifySession } from "@/lib/dal";
-import { ProductCategory } from "@/lib/types";
+import { ProductCategory } from "@/types/product";
 import axios from "axios";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
@@ -87,10 +87,6 @@ const formSchema = z.object({
  * @returns {Promise<Product>} A promise that resolves to the created product.
  */
 export async function createProduct(formData: FormData) {
-    // For enhanced security, the verifySession function can be used to authenticate the user.
-    // While middleware is a viable option, verifySession can also be directly utilized within services.
-    // We can use it also for checking the user role and other user data.
-    // This forms part of the Data Access Layer (DAL).
     const session = await verifySession();
     if (!session) return [];
     // Redirect to home page if the user is not the Admin

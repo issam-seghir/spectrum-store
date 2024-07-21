@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Metadata } from "next";
 
 import { getProducts } from "@/lib/services";
-import { Product, ProductPageQueryParams } from "@/lib/types";
+import { Product, ProductPageQueryParams } from "@/types/product";
 // import ProductCard from "./product-card";
 import ProductCard from "@/components/products/product-card";
 import {ProductsClient} from "@/components/admin/admin-products";

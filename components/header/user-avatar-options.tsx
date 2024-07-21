@@ -10,7 +10,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { getCurrentUser } from "@/lib/services";
-import { User } from "@/lib/types";
+import { User } from "@/types/user";
 import clsx from "clsx";
 import Link from "next/link";
 import { capitalizeFirstCharOfEveryWord } from "@/lib/utils";

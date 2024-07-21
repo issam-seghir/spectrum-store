@@ -1,6 +1,6 @@
 
 import { ProductForm } from "@/components/admin/product-form";
-import { Product } from "@/lib/types";
+import { Product } from "@/types/product";
 import { getProduct } from "@/lib/services";
 
 

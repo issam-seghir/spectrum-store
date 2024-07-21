@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { getProduct } from "@/lib/services";
-import { Product } from "@/lib/types";
+import { Product } from "@/types/product";
 import { ArrowLeft, Minus, Plus, ShoppingCart, Star, StarHalf } from "lucide-react";
 import { ResolvingMetadata } from "next";
 import Image from "next/image";

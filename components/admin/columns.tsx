@@ -3,7 +3,7 @@
 import { ColumnDef } from "@tanstack/react-table";
 
 import { CellAction } from "./cell-action";
-import { Product } from "@/lib/types";
+import { Product } from "@/types/product";
 import Image from "next/image";
 import {
     ArrowLeft,

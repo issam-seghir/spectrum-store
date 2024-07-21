@@ -1,5 +1,6 @@
 import { verifySession } from "@/lib/dal";
-import { Product ,User } from "@/lib/types";
+import { User } from "@/types/user";
+import { Product } from "@/types/product";
 import axios from "axios";
 const API_URL = process.env.API_URL;
 

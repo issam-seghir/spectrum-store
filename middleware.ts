@@ -65,6 +65,7 @@ export default async function middleware(req: NextRequest) {
     const isProtectedRoute = protectedRoutes.includes(path);
     const isPublicRoute = publicRoutes.includes(path);
     const isAdminRoute = adminRoutes.includes(path);
+    
     // 3. Decrypt the token from the cookie
     const token = cookies().get("token")?.value;
     let decoded: any = null;
