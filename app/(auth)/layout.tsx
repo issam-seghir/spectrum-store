@@ -1,8 +1,8 @@
 import "@/app/globals.css";
-import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/contexts/theme-provider";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Toaster } from "react-hot-toast";
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {

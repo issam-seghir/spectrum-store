@@ -14,8 +14,12 @@ import { useStore } from "@/store/store";
 import { Minus, Plus, ShoppingBag, Trash2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
+import { toast } from "react-hot-toast";
+import { Loader } from "lucide-react";
 
 export function ShopCartDrawer() {
+    const [isLoading,setIsLoading] = useState(false);
     const products = useStore().products;
     const removeProduct = useStore().removeProduct;
     const incQty = useStore.use.incQty();
@@ -24,6 +28,16 @@ export function ShopCartDrawer() {
         return products.reduce((total, product) => {
             return total + product.price * product.quantity;
         }, 0);
+    };
+
+    const onCheckout = () => {
+        setIsLoading(true);
+        console.log("Checkout successful");
+        setTimeout(() => {
+            setIsLoading(false);
+        }
+        , 2000);
+        toast.success("Checkout successful");
     };
 
     return (
@@ -67,7 +81,7 @@ export function ShopCartDrawer() {
                                         width={300}
                                         height={300}
                                         alt={product.title}
-                                        className="mx-auto  h-26 w-20 object-contain transition duration-300 ease-in-out group-hover:scale-105"
+                                        className="h-26  mx-auto w-20 object-contain transition duration-300 ease-in-out group-hover:scale-105"
                                     />
                                 </Link>
                                 <div className="flex flex-1 flex-col justify-between gap-2">
@@ -131,15 +145,21 @@ export function ShopCartDrawer() {
                     </div>
                 </div>
 
-                <div className="mt-4 flex flex-col w-full gap-3 justify-center">
+                <div className="mt-4 flex w-full flex-col justify-center gap-3">
                     <div className="flex justify-between">
                         <h1 className="text-xl font-bold">Total</h1>
                         <h2 className="text-lg font-bold">
                             ${calculateTotalPrice().toFixed(2)}
                         </h2>
                     </div>
-                    <Button variant="default" size="lg">
-                        Checkout
+                    <Button
+                        disabled={isLoading}
+                        variant="default"
+                        size="lg"
+                        onClick={onCheckout}
+                    >
+                        {isLoading ? "Processing..." : "Checkout"}
+                        {isLoading && <Loader className="animate-spin" />}
                     </Button>
                 </div>
             </SheetContent>

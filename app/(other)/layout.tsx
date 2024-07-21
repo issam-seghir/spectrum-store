@@ -3,8 +3,7 @@ import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { ThemeProvider } from "@/contexts/theme-provider";
 import type { Metadata } from "next";
-import { Toaster } from "@/components/ui/toaster"
-
+import { Toaster } from "react-hot-toast";
 // metadata for html head to improve SEO
 
 export const metadata: Metadata = {
@@ -28,12 +27,12 @@ export default function RootLayout({
                     enableSystem
                     disableTransitionOnChange
                 >
+                    <Toaster />
                     <Navbar />
                     <main className="grid min-h-full w-full flex-1">
                         {children}
                     </main>
                     <Footer />
-                    <Toaster />
                 </ThemeProvider>
     );
 }

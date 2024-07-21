@@ -1,7 +1,7 @@
 import "@/app/globals.css";
 import { ThemeProvider } from "@/contexts/theme-provider";
 import type { Metadata } from "next";
-import { Toaster } from "@/components/ui/toaster";
+import { Toaster } from "react-hot-toast";
 
 // metadata for html head to improve SEO
 
