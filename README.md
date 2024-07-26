@@ -128,6 +128,7 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
+
 <!-- CONTRIBUTING -->
 ## Contributing
 
@@ -146,6 +147,11 @@ Don't forget to give the project a star! Thanks again!
 ## License
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
+
+## State
+
+[![Stargazers over time](https://starchart.cc/issam-seghir/spectrum-store.svg?variant=adaptive)](https://starchart.cc/issam-seghir/spectrum-store)
+
 
 ## Support Me
 
