@@ -1,11 +1,11 @@
 "use server";
 import { verifySession } from "@/lib/dal";
 import { ProductCategory } from "@/types/product";
-import axios from "axios";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { z } from "zod";
+import apiClient from "./apiClient";
 const API_URL = process.env.API_URL;
 
 const loginSchema = z.object({
@@ -30,13 +30,32 @@ export async function login(formData: FormData) {
                 errors: validatedFields.error.flatten().fieldErrors,
             };
         }
-        const res = await axios.post(
-            `${API_URL}/auth/login`,
-            validatedFields.data,
-        );
+
+        // Call our internal API route instead of external API directly
+        // This adds retry logic and better error handling
+        const baseUrl =
+            process.env.SITE_URL ||
+            (typeof window !== "undefined"
+                ? window.location.origin
+                : "http://localhost:3000");
+
+        const res = await fetch(`${baseUrl}/api/auth/login`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(validatedFields.data),
+        });
+
+        const data = await res.json();
+
+        if (!res.ok || !data.success) {
+            throw new Error(data.error || data.details || "Login failed");
+        }
+
         const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
         // Set cookie
-        cookies().set("token", res?.data?.token, {
+        cookies().set("token", data.token, {
             httpOnly: true,
             secure: true,
             expires: expiresAt,
@@ -44,13 +63,13 @@ export async function login(formData: FormData) {
             path: "/",
         });
     } catch (error: any) {
-        console.error(`Failed to login user:`, error?.response?.data);
+        console.error("Failed to login user:", error.message || error);
         return {
             errors: {
-                username: "There was an error with this username",
-                password: "There was an error with this password",
+                username: error.message || "Authentication failed",
+                password: error.message || "Authentication failed",
             },
-            message: error?.response?.data,
+            message: error.message || "Authentication service unavailable",
         };
     }
     redirect("/");
@@ -109,7 +128,7 @@ export async function createProduct(formData: FormData) {
                 errors: validatedFields.error.flatten().fieldErrors,
             };
         }
-        const res = await axios.post(
+        const res = await apiClient.post(
             `${API_URL}/products`,
             validatedFields.data,
         );
@@ -117,7 +136,7 @@ export async function createProduct(formData: FormData) {
         revalidatePath("/admin/products");
         revalidatePath("/products");
         return { message: "Create Product successfully", data: res.data };
-    } catch (error : any) {
+    } catch (error: any) {
         console.error(`Failed to create product:`, error?.response?.data);
         return {
             errors: {
@@ -166,7 +185,7 @@ export async function updateProduct(id: string, formData: FormData) {
                 errors: validatedFields.error.flatten().fieldErrors,
             };
         }
-        const res = await axios.put(
+        const res = await apiClient.put(
             `${API_URL}/products/${id}`,
             validatedFields.data,
         );
@@ -208,7 +227,7 @@ export async function deleteProduct(id: string) {
     }
 
     try {
-        const res = await axios.delete(`${API_URL}/products/${id}`);
+        const res = await apiClient.delete(`${API_URL}/products/${id}`);
         return res.data;
     } catch (error: any) {
         console.error(`Failed to delete product:`, error?.response?.data);

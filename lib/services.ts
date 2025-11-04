@@ -1,10 +1,8 @@
 import { verifySession } from "@/lib/dal";
 import { User } from "@/types/user";
 import { Product } from "@/types/product";
-import axios from "axios";
+import apiClient from "./apiClient";
 const API_URL = process.env.API_URL;
-
-
 
 /**
  * Getting a get Current User  from fake store API
@@ -19,16 +17,15 @@ export async function getCurrentUser(): Promise<User | null> {
     if (!session) return null;
     const { isAdmin, id } = session;
     try {
-        const response = await axios.get<User>(`${API_URL}/users/${id}`);
-        const { password,email, ...rest} = response.data;
+        const response = await apiClient.get<User>(`${API_URL}/users/${id}`);
+        const { password, email, ...rest } = response.data;
         rest.isAdmin = isAdmin;
-        return { ...rest};
+        return { ...rest };
     } catch (error) {
         console.error(`Failed to fetch User with ID ${id}:`, error);
         return null;
     }
 }
-
 
 /**
  * Getting a single product from fake store API
@@ -44,14 +41,15 @@ export async function getProduct(id: string): Promise<Product | null> {
     if (!session) return null;
 
     try {
-        const response = await axios.get<Product>(`${API_URL}/products/${id}`);
+        const response = await apiClient.get<Product>(
+            `${API_URL}/products/${id}`,
+        );
         return response.data;
     } catch (error) {
         console.error(`Failed to fetch product with ID ${id}:`, error);
         return null;
     }
 }
-
 
 /**
  *  Getting all products from fake store API
@@ -77,7 +75,7 @@ export async function getProducts(
             url.pathname += `/category/${category}`;
         }
 
-        const { data } = await axios.get<Product[]>(url.toString());
+        const { data } = await apiClient.get<Product[]>(url.toString());
 
         if (query) {
             return data.filter((product) =>
@@ -106,7 +104,7 @@ export async function getCategories(): Promise<string[]> {
     if (!session) return [];
 
     try {
-        const { data } = await axios.get<string[]>(
+        const { data } = await apiClient.get<string[]>(
             `${API_URL}/products/categories`,
         );
         return data;

@@ -4,22 +4,79 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { login } from "@/lib/actions";
+import { Loader2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useFormStatus } from "react-dom";
 import { toast } from "react-hot-toast";
 
-export default function LogInPage() {
+function LoginButton() {
     const { pending } = useFormStatus();
+
+    return (
+        <Button className="mt-2" type="submit" disabled={pending}>
+            {pending ? (
+                <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Signing in...
+                </>
+            ) : (
+                "Sign In"
+            )}
+        </Button>
+    );
+}
+
+function LoginFormFields() {
+    const { pending } = useFormStatus();
+
+    return (
+        <div className="grid gap-1">
+            <Label className="py-2" htmlFor="username">
+                Username
+            </Label>
+            <Input
+                id="username"
+                name="username"
+                placeholder="username"
+                autoComplete="username"
+                defaultValue={"mor_2314"}
+                required
+                disabled={pending}
+            />
+            <Label className="py-2" htmlFor="password">
+                Password
+            </Label>
+            <Input
+                id="password"
+                name="password"
+                type="password"
+                placeholder="****"
+                defaultValue={"83r5^_"}
+                required
+                disabled={pending}
+            />
+        </div>
+    );
+}
+
+export default function LogInPage() {
     const handleLogin = async (formData: FormData) => {
         try {
-            await login(formData);
-        } catch (error) {
-            console.log(error);
+            const result = await login(formData);
 
-             toast.error("Something went wrong.");
+            // If there's an error returned from the action
+            if (result?.errors || result?.message) {
+                toast.error(
+                    result.message || "Login failed. Please try again.",
+                );
+            }
+        } catch (error) {
+            console.error("Login error:", error);
+            toast.error("Something went wrong. Please try again.");
         }
     };
+
     return (
         <div className="container relative h-[100dvh] flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
             <div className="relative hidden h-full w-full flex-col bg-muted dark:border-r lg:flex">
@@ -45,39 +102,8 @@ export default function LogInPage() {
                     <div className="grid gap-6">
                         <form action={handleLogin}>
                             <div className="grid gap-2">
-                                <div className="grid gap-1">
-                                    <Label className="py-2" htmlFor="username">
-                                        Username
-                                    </Label>
-                                    <Input
-                                        id="username"
-                                        name="username"
-                                        placeholder="username"
-                                        autoComplete="username"
-                                        defaultValue={"mor_2314"}
-                                        required
-                                        disabled={pending}
-                                    />
-                                    <Label className="py-2" htmlFor="password">
-                                        Password
-                                    </Label>
-                                    <Input
-                                        id="password"
-                                        name="password"
-                                        type="password"
-                                        placeholder="****"
-                                        defaultValue={"83r5^_"}
-                                        required
-                                        disabled={pending}
-                                    />
-                                </div>
-                                <Button
-                                    className="mt-2"
-                                    type="submit"
-                                    disabled={pending}
-                                >
-                                    Sign In
-                                </Button>
+                                <LoginFormFields />
+                                <LoginButton />
                             </div>
                         </form>
                     </div>
