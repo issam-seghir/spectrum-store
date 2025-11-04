@@ -19,92 +19,91 @@ const loginSchema = z.object({
  * @param {string} password - the password of user
  */
 export async function login(formData: FormData) {
-    try {
-        const validatedFields = loginSchema.safeParse({
-            username: formData.get("username"),
-            password: formData.get("password"),
-        });
-        // Return early if the form data is invalid
-        if (!validatedFields.success) {
-            return {
-                errors: validatedFields.error.flatten().fieldErrors,
-            };
-        }
+    const MAX_RETRIES = 3;
+    const RETRY_DELAY = 1000; // 1 second
 
-        // Call our internal API route instead of external API directly
-        // Build an absolute URL that works in Vercel production and locally.
-        // Priority: NEXT_PUBLIC_BASE_URL → VERCEL_URL → SITE_URL → hardcoded production URL → localhost
-        let host =
-            process.env.NEXT_PUBLIC_BASE_URL ||
-            (process.env.VERCEL_URL
-                ? `https://${process.env.VERCEL_URL}`
-                : undefined) ||
-            undefined;
-
-        // Validate SITE_URL if we're about to use it (must be absolute URL)
-        if (
-            !host &&
-            process.env.SITE_URL &&
-            /^https?:\/\//i.test(process.env.SITE_URL)
-        ) {
-            host = process.env.SITE_URL;
-        }
-
-        // Final fallback: hardcoded production URL or localhost for dev
-        if (!host) {
-            host =
-                process.env.NODE_ENV === "production"
-                    ? "https://spectrum-store.vercel.app"
-                    : "http://localhost:3000";
-            console.warn("Using fallback host for login API call:", host);
-        }
-
-        const loginUrl = new URL(`/api/auth/login`, host).toString();
-        console.debug("Computed loginUrl for proxy call:", loginUrl, { host });
-        
-        const res = await fetch(loginUrl, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(validatedFields.data),
-        });
-
-        // Check if response is HTML (404/error page) instead of JSON
-        const contentType = res.headers.get("content-type");
-        if (contentType && contentType.includes("text/html")) {
-            console.error("API route returned HTML instead of JSON. Status:", res.status);
-            throw new Error(
-                "Login API route not found. The route may not be deployed yet. Please redeploy or contact support."
-            );
-        }
-
-        const data = await res.json();
-
-        if (!res.ok || !data.success) {
-            throw new Error(data.error || data.details || "Login failed");
-        }
-
-        const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
-        // Set cookie
-        cookies().set("token", data.token, {
-            httpOnly: true,
-            secure: true,
-            expires: expiresAt,
-            sameSite: "lax",
-            path: "/",
-        });
-    } catch (error: any) {
-        console.error("Failed to login user:", error.message || error);
+    const validatedFields = loginSchema.safeParse({
+        username: formData.get("username"),
+        password: formData.get("password"),
+    });
+    // Return early if the form data is invalid
+    if (!validatedFields.success) {
         return {
-            errors: {
-                username: error.message || "Authentication failed",
-                password: error.message || "Authentication failed",
-            },
-            message: error.message || "Authentication service unavailable",
+            errors: validatedFields.error.flatten().fieldErrors,
         };
     }
-    redirect("/");
+
+    let lastError: any;
+    let loginSuccessful = false;
+
+    // Retry logic with exponential backoff for external API call
+    for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+        try {
+            const response = await apiClient.post(
+                `${API_URL}/auth/login`,
+                validatedFields.data,
+                {
+                    timeout: 15000, // 15 second timeout per attempt
+                },
+            );
+
+            // Success! Set cookie
+            const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+            cookies().set("token", response.data.token, {
+                httpOnly: true,
+                secure: true,
+                expires: expiresAt,
+                sameSite: "lax",
+                path: "/",
+            });
+
+            loginSuccessful = true;
+            break; // Exit retry loop on success
+        } catch (error: any) {
+            lastError = error;
+
+            // If it's an HTML response (Cloudflare), log and retry
+            if (error?.isExternalHtml) {
+                console.warn(
+                    `Login attempt ${attempt}/${MAX_RETRIES} failed: external API returned HTML (Cloudflare challenge)`,
+                    { status: error?.response?.status, attempt },
+                );
+            } else {
+                // Other errors (401, 404, network, etc.)
+                console.error(
+                    `Login attempt ${attempt}/${MAX_RETRIES} failed:`,
+                    error?.response?.data || error?.message,
+                );
+            }
+
+            // If not the last attempt, wait before retrying
+            if (attempt < MAX_RETRIES) {
+                const delay = RETRY_DELAY * Math.pow(2, attempt - 1); // Exponential backoff
+                await new Promise((resolve) => setTimeout(resolve, delay));
+            }
+        }
+    }
+
+    // If login succeeded, redirect (outside try-catch to avoid catching redirect's internal error)
+    if (loginSuccessful) {
+        redirect("/");
+    }
+
+    // All retries failed - return user-friendly error
+    const errorMessage = lastError?.isExternalHtml
+        ? "Authentication service is temporarily unavailable. Please try again in a few moments."
+        : lastError?.response?.data?.message ||
+          lastError?.message ||
+          "Authentication failed. Please check your credentials.";
+
+    console.error("All login attempts failed:", errorMessage);
+    return {
+        errors: {
+            username: errorMessage,
+            password: errorMessage,
+        },
+        message: errorMessage,
+    };
 }
 
 /**
