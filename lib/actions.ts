@@ -32,14 +32,36 @@ export async function login(formData: FormData) {
         }
 
         // Call our internal API route instead of external API directly
-        // This adds retry logic and better error handling
-        const baseUrl =
-            process.env.SITE_URL ||
-            (typeof window !== "undefined"
-                ? window.location.origin
-                : "http://localhost:3000");
+        // Build an absolute URL that works in Vercel production and locally.
+        // Priority: NEXT_PUBLIC_BASE_URL → VERCEL_URL → SITE_URL → hardcoded production URL → localhost
+        let host =
+            process.env.NEXT_PUBLIC_BASE_URL ||
+            (process.env.VERCEL_URL
+                ? `https://${process.env.VERCEL_URL}`
+                : undefined) ||
+            undefined;
 
-        const res = await fetch(`${baseUrl}/api/auth/login`, {
+        // Validate SITE_URL if we're about to use it (must be absolute URL)
+        if (
+            !host &&
+            process.env.SITE_URL &&
+            /^https?:\/\//i.test(process.env.SITE_URL)
+        ) {
+            host = process.env.SITE_URL;
+        }
+
+        // Final fallback: hardcoded production URL or localhost for dev
+        if (!host) {
+            host =
+                process.env.NODE_ENV === "production"
+                    ? "https://spectrum-store.vercel.app"
+                    : "http://localhost:3000";
+            console.warn("Using fallback host for login API call:", host);
+        }
+
+        const loginUrl = new URL(`/api/auth/login`, host).toString();
+        console.debug("Computed loginUrl for proxy call:", loginUrl, { host });
+        const res = await fetch(loginUrl, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
