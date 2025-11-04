@@ -61,6 +61,7 @@ export async function login(formData: FormData) {
 
         const loginUrl = new URL(`/api/auth/login`, host).toString();
         console.debug("Computed loginUrl for proxy call:", loginUrl, { host });
+        
         const res = await fetch(loginUrl, {
             method: "POST",
             headers: {
@@ -68,6 +69,15 @@ export async function login(formData: FormData) {
             },
             body: JSON.stringify(validatedFields.data),
         });
+
+        // Check if response is HTML (404/error page) instead of JSON
+        const contentType = res.headers.get("content-type");
+        if (contentType && contentType.includes("text/html")) {
+            console.error("API route returned HTML instead of JSON. Status:", res.status);
+            throw new Error(
+                "Login API route not found. The route may not be deployed yet. Please redeploy or contact support."
+            );
+        }
 
         const data = await res.json();
 
