@@ -1,8 +1,7 @@
 import jwt from "jsonwebtoken";
-import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
-//? this is a middleware function that will run on every request
+//? this is a proxy function that will run on every request
 //? it will check if the user is authenticated or not (authorization)
 //? and redirect them to the appropriate page
 
@@ -32,7 +31,7 @@ const protectedRoutes = [
 const adminRoutes = ["/admin", "/admin/:path*"];
 const publicRoutes = ["/login", "/signup"];
 
-export default async function middleware(req: NextRequest) {
+export default async function proxy(req: NextRequest) {
     // Check the origin from the request
     const origin = req.headers.get("origin") ?? "";
     const isAllowedOrigin = allowedOrigins.includes(origin);
@@ -67,7 +66,7 @@ export default async function middleware(req: NextRequest) {
     const isAdminRoute = adminRoutes.includes(path);
     
     // 3. Decrypt the token from the cookie
-    const token = cookies().get("token")?.value;
+    const token = req.cookies.get("token")?.value;
     let decoded: any = null;
     if (token) {
         decoded = jwt.decode(token);
@@ -94,7 +93,7 @@ export default async function middleware(req: NextRequest) {
     return NextResponse.next();
 }
 
-// Routes Middleware should not run on
+// Routes Proxy should not run on
 export const config = {
     matcher: ["/((?!api|_next/static|_next/image|.*\\.png$).*)"],
 };

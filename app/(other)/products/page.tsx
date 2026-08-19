@@ -2,7 +2,7 @@
 import Categories from "@/components/products/categories";
 import ProductList from "@/components/products/product-list";
 import { Skeleton } from "@/components/ui/skeleton";
-import { ProductPageQueryParams } from "@/types/product";
+import { ProductPageProps } from "@/types/product";
 import clsx from "clsx";
 import { Metadata } from "next";
 import { Suspense } from "react";
@@ -20,9 +20,8 @@ const skeletonProduct = "mb-3 h-25 w-5/6 animate-pulse rounded";
 const activeAndTitles = "bg-neutral-800 dark:bg-neutral-300";
 const items = "bg-neutral-400 dark:bg-neutral-700";
 
-export default async function ProductsPage({
-    searchParams,
-}: ProductPageQueryParams) {
+export default async function ProductsPage(props: ProductPageProps) {
+    const searchParams = await props.searchParams;
     return (
         <section className="m-4 flex flex-auto flex-col gap-4 md:flex-row">
             <Suspense

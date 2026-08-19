@@ -4,12 +4,13 @@ import Link from "next/link";
 import { Metadata } from "next";
 
 import { getProducts } from "@/lib/services";
-import { Product, ProductPageQueryParams } from "@/types/product";
+import { Product, ProductPageProps } from "@/types/product";
 // import ProductCard from "./product-card";
 import ProductCard from "@/components/products/product-card";
 import {ProductsClient} from "@/components/admin/admin-products";
 
-async function AdminProducts({ searchParams }: ProductPageQueryParams) {
+async function AdminProducts(props: ProductPageProps) {
+    const searchParams = await props.searchParams;
     const products: Product[] = await getProducts(
         searchParams.category,
         searchParams.query,

@@ -106,14 +106,14 @@ First, run the development server:
 2. Install Dependencies
 
    ```sh
-   npm install
+   pnpm install
    ```
 3. rename `.env.example` file to `.env`
 
 4. Start the server
 
     ```sh
-    npm run dev
+    pnpm dev
     ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.

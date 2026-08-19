@@ -49,7 +49,7 @@ export async function login(formData: FormData) {
 
             // Success! Set cookie
             const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
-            cookies().set("token", response.data.token, {
+            (await cookies()).set("token", response.data.token, {
                 httpOnly: true,
                 secure: true,
                 expires: expiresAt,
@@ -111,7 +111,7 @@ export async function login(formData: FormData) {
  * @returns {Promise<void>}
  */
 export async function logout(): Promise<void> {
-    cookies().delete("token");
+    (await cookies()).delete("token");
     redirect("/login");
 }
 

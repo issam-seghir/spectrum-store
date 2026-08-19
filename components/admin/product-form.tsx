@@ -50,7 +50,8 @@ const formSchema = z.object({
     image: z.string().url(),
 });
 
-type ProductFormValues = z.infer<typeof formSchema>;
+type ProductFormValues = z.input<typeof formSchema>;
+type ProductFormOutput = z.output<typeof formSchema>;
 
 interface ProductFormProps {
     product?: Product | null;
@@ -82,7 +83,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ product }) => {
               image: "",
           };
 
-    const form = useForm<ProductFormValues>({
+    const form = useForm<ProductFormValues, any, ProductFormOutput>({
         mode: "onChange",
         resolver: zodResolver(formSchema),
         defaultValues,
@@ -380,6 +381,10 @@ console.log(form.formState.isSubmitting);
                                             }
                                             placeholder="9.99$"
                                             {...field}
+                                            // `price` is coerced, so Zod 4 types its
+                                            // input as `unknown`; the value held here
+                                            // is the numeric default or the raw input.
+                                            value={field.value as string | number}
                                         />
                                     </FormControl>
                                     <FormMessage />

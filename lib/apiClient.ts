@@ -12,7 +12,7 @@ const apiClient = axios.create({
 // Response interceptor to detect HTML pages (Cloudflare challenge) and throw a clearer error
 apiClient.interceptors.response.use(
     (response: AxiosResponse<any, any>) => {
-        const contentType = response.headers["content-type"] || "";
+        const contentType = String(response.headers["content-type"] ?? "");
         const bodyIsHtml =
             typeof response.data === "string" &&
             response.data.trim().startsWith("<!DOCTYPE html>");

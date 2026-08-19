@@ -2,6 +2,8 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 
+import { DataTableFeatures } from "@/components/ui/data-table";
+
 import { CellAction } from "./cell-action";
 import { Product } from "@/types/product";
 import Image from "next/image";
@@ -14,7 +16,7 @@ import {
     StarHalf,
 } from "lucide-react";
 
-export const columns: ColumnDef<Product>[] = [
+export const columns: ColumnDef<DataTableFeatures, Product>[] = [
     {
         accessorKey: "title",
         header: "Name",

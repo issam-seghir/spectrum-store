@@ -3,11 +3,18 @@
 import {
     ColumnDef,
     ColumnFiltersState,
+    RowData,
+    columnFilteringFeature,
+    columnSizingFeature,
+    columnVisibilityFeature,
+    createFilteredRowModel,
+    createPaginatedRowModel,
+    filterFns,
     flexRender,
-    getCoreRowModel,
-    getFilteredRowModel,
-    getPaginationRowModel,
-    useReactTable,
+    rowPaginationFeature,
+    rowSelectionFeature,
+    tableFeatures,
+    useTable,
 } from "@tanstack/react-table";
 import { useState } from "react";
 
@@ -22,25 +29,39 @@ import {
     TableRow,
 } from "@/components/ui/table";
 
-interface DataTableProps<TData, TValue> {
-    columns: ColumnDef<TData, TValue>[];
+//? TanStack Table v9 is feature-based: only the features registered here are
+//? bundled and available on the table instance. This set covers what the table
+//? below uses -- per-column filtering, pagination, column sizing and row selection.
+export const dataTableFeatures = tableFeatures({
+    columnFilteringFeature,
+    columnSizingFeature,
+    columnVisibilityFeature,
+    rowPaginationFeature,
+    rowSelectionFeature,
+    filteredRowModel: createFilteredRowModel(),
+    paginatedRowModel: createPaginatedRowModel(),
+    filterFns,
+});
+
+export type DataTableFeatures = typeof dataTableFeatures;
+
+interface DataTableProps<TData extends RowData> {
+    columns: ColumnDef<DataTableFeatures, TData>[];
     data: TData[];
     searchKey: string;
 }
 
-export function DataTable<TData, TValue>({
+export function DataTable<TData extends RowData>({
     columns,
     data,
     searchKey,
-}: DataTableProps<TData, TValue>) {
+}: DataTableProps<TData>) {
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-    const table = useReactTable({
+    const table = useTable({
+        features: dataTableFeatures,
         data,
         columns,
-        getCoreRowModel: getCoreRowModel(),
-        getPaginationRowModel: getPaginationRowModel(),
         onColumnFiltersChange: setColumnFilters,
-        getFilteredRowModel: getFilteredRowModel(),
         state: {
             columnFilters,
         },

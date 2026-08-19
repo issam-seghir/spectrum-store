@@ -9,7 +9,7 @@ import { cache } from "react";
 const ADMIN_ROLE : number = 2;
 
 export const verifySession = cache(async () => {
-    const token = cookies().get("token")?.value;
+    const token = (await cookies()).get("token")?.value;
     let decoded: any = null;
     if (token) {
         decoded = jwt.decode(token);

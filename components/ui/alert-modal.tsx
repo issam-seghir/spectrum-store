@@ -1,9 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
-
 import { Modal } from "@/components/ui/modal";
 import { Button } from "@/components/ui/button";
+import { useMounted } from "@/hooks/use-mounted";
 
 interface AlertModalProps {
     isOpen: boolean;
@@ -18,11 +17,7 @@ export const AlertModal: React.FC<AlertModalProps> = ({
     onConfirm,
     loading,
 }) => {
-    const [isMounted, setIsMounted] = useState(false);
-
-    useEffect(() => {
-        setIsMounted(true);
-    }, []);
+    const isMounted = useMounted();
 
     if (!isMounted) {
         return null;

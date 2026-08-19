@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://spectrum-store.vercel.app
+
+# Sitemaps
+Sitemap: https://spectrum-store.vercel.app/sitemap.xml
