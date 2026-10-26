@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 import { useStore } from "@/store/store";
-import { Minus, Plus, ShoppingBag, Trash2 } from "lucide-react";
+import { Minus, Plus, ShoppingBag, Trash } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -139,7 +139,7 @@ export function ShopCartDrawer() {
                                                 size="icon"
                                                 variant="destructive"
                                             >
-                                                <Trash2 size={"23"} />
+                                                <Trash size={"23"} />
                                             </Button>
                                         </div>
                                     </div>

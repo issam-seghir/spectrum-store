@@ -1,6 +1,6 @@
 "use client";
 
-import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
+import { Copy, Ellipsis, SquarePen, Trash } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
@@ -101,7 +101,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
                 <DropdownMenuTrigger asChild>
                     <Button variant="ghost" className="h-8 w-8 p-0">
                         <span className="sr-only">Open menu</span>
-                        <MoreHorizontal className="h-4 w-4" />
+                        <Ellipsis className="h-4 w-4" />
                     </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
@@ -118,7 +118,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
                             )
                         }
                     >
-                        <Edit className="mr-2 h-4 w-4" /> Update
+                        <SquarePen className="mr-2 h-4 w-4" /> Update
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={() => setOpen(true)}>
                         <Trash className="mr-2 h-4 w-4" /> Delete

@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { login } from "@/lib/actions";
-import { Loader2 } from "lucide-react";
+import { LoaderCircle } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useFormStatus } from "react-dom";
@@ -17,7 +17,7 @@ function LoginButton() {
         <Button className="mt-2" type="submit" disabled={pending}>
             {pending ? (
                 <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />
                     Signing in...
                 </>
             ) : (
