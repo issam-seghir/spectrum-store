@@ -120,7 +120,7 @@ console.log(form.formState.isSubmitting);
                             >
                                 <div className="w-full flex-1 p-4">
                                     <div className="flex items-start">
-                                        <div className="flex-shrink-0 pt-0.5">
+                                        <div className="shrink-0 pt-0.5">
                                             <Image
                                                 className="h-20 w-20 rounded-md"
                                                 width={80}
@@ -174,7 +174,7 @@ console.log(form.formState.isSubmitting);
                             >
                                 <div className="w-full flex-1 p-4">
                                     <div className="flex items-start">
-                                        <div className="flex-shrink-0 pt-0.5">
+                                        <div className="shrink-0 pt-0.5">
                                             <Image
                                                 className="h-20 w-20 rounded-md"
                                                 width={80}
@@ -241,7 +241,7 @@ console.log(form.formState.isSubmitting);
                     success: (res) => (
                         <div className="w-full flex-1 p-4">
                             <div className="flex items-start">
-                                <div className="flex-shrink-0 pt-0.5">
+                                <div className="shrink-0 pt-0.5">
                                     <Image
                                         className="h-20 w-20 rounded-md"
                                         width={80}

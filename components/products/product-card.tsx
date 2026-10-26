@@ -20,7 +20,7 @@ export default function ProductCard({ product }: { product: Product }) {
     if (!isMount) return null;
 
     return (
-        <article className="group flex h-full max-h-full  w-full animate-fadeIn flex-col space-y-2 rounded-md border-2 bg-background-secondary p-4  shadow-sm transition-opacity dark:border-0">
+        <article className="group flex h-full max-h-full  w-full animate-fadeIn flex-col space-y-2 rounded-md border-2 bg-background-secondary p-4  shadow-xs transition-opacity dark:border-0">
             <Link
                 href={`/products/${product.id}`}
                 passHref
