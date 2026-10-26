@@ -47,7 +47,7 @@ export default function ProductCard({ product }: { product: Product }) {
                 <p className="line-clamp-4 text-xs">
                     <abbr
                         title={product.description}
-                        className="font-normal text-stone-600 no-underline dark:text-white dark:text-opacity-70"
+                        className="font-normal text-stone-600 no-underline dark:text-white/70"
                     >
                         {product.description}
                     </abbr>

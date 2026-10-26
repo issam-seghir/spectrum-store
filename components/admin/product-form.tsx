@@ -116,7 +116,7 @@ console.log(form.formState.isSubmitting);
                                     t.visible
                                         ? "animate-enter"
                                         : "animate-leave"
-                                } pointer-events-auto flex w-full max-w-md rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5`}
+                                } pointer-events-auto flex w-full max-w-md rounded-lg bg-white shadow-lg ring-1 ring-black/5`}
                             >
                                 <div className="w-full flex-1 p-4">
                                     <div className="flex items-start">
@@ -170,7 +170,7 @@ console.log(form.formState.isSubmitting);
                                     t.visible
                                         ? "animate-enter"
                                         : "animate-leave"
-                                } pointer-events-auto flex w-full max-w-md rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5`}
+                                } pointer-events-auto flex w-full max-w-md rounded-lg bg-white shadow-lg ring-1 ring-black/5`}
                             >
                                 <div className="w-full flex-1 p-4">
                                     <div className="flex items-start">

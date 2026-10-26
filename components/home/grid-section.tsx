@@ -65,7 +65,7 @@ export default function GridSection() {
                             fill // stretches the image to fit the container
                             className="rounded-lg object-cover"
                         />
-                        <h1 className="relative ml-4 mt-16 inline-flex rounded bg-white bg-opacity-25 px-4 py-1 text-lg font-bold text-white">
+                        <h1 className="relative ml-4 mt-16 inline-flex rounded bg-white/25 px-4 py-1 text-lg font-bold text-white">
                             New
                         </h1>
                         <h2 className="relative  ml-4 text-xl font-semibold text-white">
