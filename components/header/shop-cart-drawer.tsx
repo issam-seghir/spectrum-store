@@ -73,7 +73,7 @@ export function ShopCartDrawer() {
                         {products.map((product) => (
                             <article
                                 key={product.id}
-                                className="group flex h-full max-h-full  w-full animate-fadeIn flex-col space-y-2 rounded-md border-2 bg-background-secondary p-2  shadow-sm transition-opacity dark:border-0"
+                                className="group flex h-full max-h-full  w-full animate-fadeIn flex-col space-y-2 rounded-md border-2 bg-background-secondary p-2  shadow-xs transition-opacity dark:border-0"
                             >
                                 <Link
                                     href={`/products/${product.id}`}

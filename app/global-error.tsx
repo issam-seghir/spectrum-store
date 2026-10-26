@@ -11,7 +11,7 @@ export default function Error(
         console.error(error);
     }, [error]);
     return (
-        <div className="flex h-[100dvh] w-full items-center justify-center">
+        <div className="flex h-dvh w-full items-center justify-center">
             <div className="m-0  max-w-xl flex-col rounded-lg border  p-8 md:p-12">
                 <h2 className="text-xl font-bold">Oh no!</h2>
                 <p className="my-2">

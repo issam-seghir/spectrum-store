@@ -78,7 +78,7 @@ export default function LogInPage() {
     };
 
     return (
-        <div className="container relative h-[100dvh] flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
+        <div className="container relative h-dvh flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
             <div className="relative hidden h-full w-full flex-col bg-muted dark:border-r lg:flex">
                 <Image
                     loading="eager" // preloads the image before it's in the viewport

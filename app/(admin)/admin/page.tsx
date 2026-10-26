@@ -33,7 +33,7 @@ const graphRevenue = generateRandomData();
                 </div>
                 <Separator />
                 <div className="flex flex-wrap gap-4 md:grid md:grid-cols-3">
-                    <Card className="flex-grow basis-1/3">
+                    <Card className="grow basis-1/3">
                         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                             <CardTitle className="text-sm font-medium">
                                 Total Revenue
@@ -44,7 +44,7 @@ const graphRevenue = generateRandomData();
                             <div className="text-2xl font-bold">156</div>
                         </CardContent>
                     </Card>
-                    <Card className="flex-grow basis-1/3">
+                    <Card className="grow basis-1/3">
                         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                             <CardTitle className="text-sm font-medium">
                                 Sales
@@ -55,7 +55,7 @@ const graphRevenue = generateRandomData();
                             <div className="text-2xl font-bold">+90</div>
                         </CardContent>
                     </Card>
-                    <Card className="flex-grow basis-1/3">
+                    <Card className="grow basis-1/3">
                         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                             <CardTitle className="text-sm font-medium">
                                 Products In Stock

@@ -1,70 +1,226 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@import "tw-animate-css";
 
+@custom-variant dark (&:is(.dark *));
+
+/*
+  Container: v3 config had `center: true`, `padding: 2rem` and its own
+  container-only screens (xsm 460px, 2xl 1400px). `max-width: none` from `sm`
+  up cancels v4's default per-breakpoint max-widths; the two custom steps
+  follow in ascending order so the larger one wins on wide screens.
+*/
+@utility container {
+	margin-inline: auto;
+	padding-inline: 2rem;
+	@media (width >= --theme(--breakpoint-sm)) {
+		max-width: none;
+	}
+	@media (width >= 460px) {
+		max-width: 460px;
+	}
+	@media (width >= 1400px) {
+		max-width: 1400px;
+	}
+}
+
+/*
+  shadcn/ui Tailwind v4 layout: the raw tokens live on :root/.dark (outside
+  any layer, wrapped in hsl()), and `@theme inline` maps them to Tailwind
+  colors so utilities reference the variable directly and follow `.dark`.
+*/
+:root {
+	--background: hsl(0 0% 100%);
+	--background-secondary: hsl(253 12% 95%);
+	--foreground: hsl(222.2 84% 4.9%);
+
+	--card: hsl(0 0% 100%);
+	--card-foreground: hsl(222.2 84% 4.9%);
+
+	--popover: hsl(0 0% 100%);
+	--popover-foreground: hsl(222.2 84% 4.9%);
+
+	--primary: hsl(222.2 47.4% 11.2%);
+	--primary-foreground: hsl(210 40% 98%);
+
+	--secondary: hsl(210 40% 96.1%);
+	--secondary-foreground: hsl(222.2 47.4% 11.2%);
+
+	--muted: hsl(210 40% 96.1%);
+	--muted-foreground: hsl(215.4 16.3% 46.9%);
+
+	--accent: hsl(210 40% 96.1%);
+	--accent-foreground: hsl(222.2 47.4% 11.2%);
+
+	--destructive: hsl(0 84.2% 60.2%);
+	--destructive-foreground: hsl(210 40% 98%);
+
+	--border: hsl(214.3 31.8% 91.4%);
+	--input: hsl(214.3 31.8% 91.4%);
+	--ring: hsl(222.2 84% 4.9%);
+
+	--radius: 0.5rem;
+}
+
+.dark {
+	--background: hsl(222.2 84% 4.9%);
+	--background-secondary: hsl(222.2 84% 8%);
+	--foreground: hsl(210 40% 98%);
+
+	--card: hsl(222.2 84% 4.9%);
+	--card-foreground: hsl(210 40% 98%);
+
+	--popover: hsl(222.2 84% 4.9%);
+	--popover-foreground: hsl(210 40% 98%);
+
+	--primary: hsl(210 40% 98%);
+	--primary-foreground: hsl(222.2 47.4% 11.2%);
+
+	--secondary: hsl(217.2 32.6% 17.5%);
+	--secondary-foreground: hsl(210 40% 98%);
+
+	--muted: hsl(217.2 32.6% 17.5%);
+	--muted-foreground: hsl(215 20.2% 65.1%);
+
+	--accent: hsl(217.2 32.6% 17.5%);
+	--accent-foreground: hsl(210 40% 98%);
+
+	--destructive: hsl(0 62.8% 30.6%);
+	--destructive-foreground: hsl(210 40% 98%);
+
+	--border: hsl(217.2 32.6% 17.5%);
+	--input: hsl(217.2 32.6% 17.5%);
+	--ring: hsl(212.7 26.8% 83.9%);
+}
+
+/*
+  `inline` matters for --font-sans too: --font-inter is set by next/font on
+  <body>, not :root, so the value must be inlined into the utility.
+*/
+@theme inline {
+	--font-sans:
+		var(--font-inter), ui-sans-serif, system-ui, sans-serif,
+		"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+		"Noto Color Emoji";
+
+	--color-border: var(--border);
+	--color-input: var(--input);
+	--color-ring: var(--ring);
+
+	--color-background: var(--background);
+	--color-background-secondary: var(--background-secondary);
+	--color-foreground: var(--foreground);
+
+	--color-primary: var(--primary);
+	--color-primary-foreground: var(--primary-foreground);
+
+	--color-secondary: var(--secondary);
+	--color-secondary-foreground: var(--secondary-foreground);
+
+	--color-destructive: var(--destructive);
+	--color-destructive-foreground: var(--destructive-foreground);
+
+	--color-muted: var(--muted);
+	--color-muted-foreground: var(--muted-foreground);
+
+	--color-accent: var(--accent);
+	--color-accent-foreground: var(--accent-foreground);
+
+	--color-popover: var(--popover);
+	--color-popover-foreground: var(--popover-foreground);
+
+	--color-card: var(--card);
+	--color-card-foreground: var(--card-foreground);
+
+	--radius-lg: var(--radius);
+	--radius-md: calc(var(--radius) - 2px);
+	--radius-sm: calc(var(--radius) - 4px);
+
+	--animate-text: text 5s ease infinite;
+	--animate-fadeIn: fadeIn 0.3s ease-in-out;
+	--animate-carousel: marquee 60s linear infinite;
+	--animate-blink: blink 1.4s both infinite;
+	--animate-accordion-down: accordion-down 0.2s ease-out;
+	--animate-accordion-up: accordion-up 0.2s ease-out;
+
+	@keyframes text {
+		0%,
+		100% {
+			background-size: 200% 200%;
+			background-position: left center;
+		}
+		50% {
+			background-size: 200% 200%;
+			background-position: right center;
+		}
+	}
+	@keyframes fadeIn {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
+	}
+	@keyframes marquee {
+		0% {
+			transform: translateX(0%);
+		}
+		100% {
+			transform: translateX(-100%);
+		}
+	}
+	@keyframes blink {
+		0% {
+			opacity: 0.2;
+		}
+		20% {
+			opacity: 1;
+		}
+		100% {
+			opacity: 0.2;
+		}
+	}
+	@keyframes accordion-down {
+		from {
+			height: 0;
+		}
+		to {
+			height: var(--radix-accordion-content-height);
+		}
+	}
+	@keyframes accordion-up {
+		from {
+			height: var(--radix-accordion-content-height);
+		}
+		to {
+			height: 0;
+		}
+	}
+}
+
+/*
+  v3 compatibility for Preflight changes in v4 (see the Tailwind upgrade
+  guide): default border color was gray-200 (now currentcolor), buttons had
+  `cursor: pointer` (now `default`), placeholders were gray-400 (now 50% of
+  the text color). Remove a rule once nothing relies on the old default.
+*/
 @layer base {
-	:root {
-		--background: 0 0% 100%;
-		--background-secondary: 253 12% 95%;
-		--foreground: 222.2 84% 4.9%;
-
-		--card: 0 0% 100%;
-		--card-foreground: 222.2 84% 4.9%;
-
-		--popover: 0 0% 100%;
-		--popover-foreground: 222.2 84% 4.9%;
-
-		--primary: 222.2 47.4% 11.2%;
-		--primary-foreground: 210 40% 98%;
-
-		--secondary: 210 40% 96.1%;
-		--secondary-foreground: 222.2 47.4% 11.2%;
-
-		--muted: 210 40% 96.1%;
-		--muted-foreground: 215.4 16.3% 46.9%;
-
-		--accent: 210 40% 96.1%;
-		--accent-foreground: 222.2 47.4% 11.2%;
-
-		--destructive: 0 84.2% 60.2%;
-		--destructive-foreground: 210 40% 98%;
-
-		--border: 214.3 31.8% 91.4%;
-		--input: 214.3 31.8% 91.4%;
-		--ring: 222.2 84% 4.9%;
-
-		--radius: 0.5rem;
+	*,
+	::after,
+	::before,
+	::backdrop,
+	::file-selector-button {
+		border-color: var(--color-gray-200, currentcolor);
 	}
 
-	.dark {
-		--background: 222.2 84% 4.9%;
-		 --background-secondary: 222.2 84% 8%;
-		--foreground: 210 40% 98%;
+	button:not(:disabled),
+	[role="button"]:not(:disabled) {
+		cursor: pointer;
+	}
 
-		--card: 222.2 84% 4.9%;
-		--card-foreground: 210 40% 98%;
-
-		--popover: 222.2 84% 4.9%;
-		--popover-foreground: 210 40% 98%;
-
-		--primary: 210 40% 98%;
-		--primary-foreground: 222.2 47.4% 11.2%;
-
-		--secondary: 217.2 32.6% 17.5%;
-		--secondary-foreground: 210 40% 98%;
-
-		--muted: 217.2 32.6% 17.5%;
-		--muted-foreground: 215 20.2% 65.1%;
-
-		--accent: 217.2 32.6% 17.5%;
-		--accent-foreground: 210 40% 98%;
-
-		--destructive: 0 62.8% 30.6%;
-		--destructive-foreground: 210 40% 98%;
-
-		--border: 217.2 32.6% 17.5%;
-		--input: 217.2 32.6% 17.5%;
-		--ring: 212.7 26.8% 83.9%;
+	input::placeholder,
+	textarea::placeholder {
+		color: var(--color-gray-400);
 	}
 }
 

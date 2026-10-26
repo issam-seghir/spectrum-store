@@ -2,7 +2,7 @@
   "tabWidth": 4,
   "trailingComma": "all",
   "plugins": ["prettier-plugin-tailwindcss"],
-  "tailwindConfig": "./tailwind.config.ts",
+  "tailwindStylesheet": "./app/globals.css",
   "tailwindAttributes": ["className"],
   "tailwindFunctions": ["clsx", "cx", "tw", "getStyles", "getClassName", "getTailwindClassNames"]
 }
